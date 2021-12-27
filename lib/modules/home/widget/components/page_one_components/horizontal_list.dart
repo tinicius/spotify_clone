@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_clone/application/themes/theme_config.dart';
 import 'package:spotify_clone/models/grid_item_model.dart';
 import 'package:spotify_clone/modules/home/widget/items/page_one_items/list_item_circle.dart';
 import 'package:spotify_clone/modules/home/widget/items/page_one_items/list_item_square.dart';
@@ -22,7 +23,7 @@ class HorizontalList extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(color: Colors.white, fontSize: 24),
+                style: ThemeConfig().getTextStyle(fontSize: 21),
               ),
             ],
           ),

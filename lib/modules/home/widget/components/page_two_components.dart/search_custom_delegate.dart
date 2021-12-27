@@ -24,7 +24,7 @@ class SearchCustomDelegate extends SearchDelegate {
   List<Widget>? buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Icons.camera_alt_outlined),
+        icon: const Icon(Icons.camera_alt_outlined),
         onPressed: () {
           query = '';
         },
@@ -35,7 +35,7 @@ class SearchCustomDelegate extends SearchDelegate {
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_back),
+      icon: const Icon(Icons.arrow_back),
       onPressed: () {
         close(context, null);
       },
@@ -44,17 +44,17 @@ class SearchCustomDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Text(
+    return  Text(
       "results",
-      style: TextStyle(color: Colors.white),
+      style: ThemeConfig().getTextStyle(),
     );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Text(
+    return  Text(
       "suggestions",
-      style: TextStyle(color: Colors.white),
+      style:ThemeConfig().getTextStyle(),
     );
   }
 }

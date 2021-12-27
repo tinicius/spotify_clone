@@ -8,20 +8,29 @@ class SectionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Image.network(
-          item.image,
-          fit: BoxFit.fill,
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            item.title,
-            style: const TextStyle(color: Colors.white),
+    return Padding(
+      padding: const EdgeInsets.only(left: 10, right: 10),
+      child: Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            child: Image.network(
+              item.image,
+              fit: BoxFit.fill,
+            ),
+            decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 35, 11, 39),
+                border: Border.all()),
           ),
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              item.title,
+              style: const TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

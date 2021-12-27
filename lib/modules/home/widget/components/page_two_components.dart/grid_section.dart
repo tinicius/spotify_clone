@@ -21,12 +21,12 @@ class _GridSectionState extends State<GridSection> {
           crossAxisCount: 2,
           mainAxisSpacing: 10,
           crossAxisSpacing: 10,
-          childAspectRatio: 1.5,
+          childAspectRatio: 110 / 60,
         ),
         itemBuilder: (context, index) {
           return SectionItem(
             item: widget.items[index],
-          ); 
+          );
         });
   }
 }

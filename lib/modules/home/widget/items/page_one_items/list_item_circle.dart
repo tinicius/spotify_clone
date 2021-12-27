@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:spotify_clone/application/themes/theme_config.dart';
 import 'package:spotify_clone/models/grid_item_model.dart';
 
 class ListItemCircle extends StatelessWidget {
@@ -33,7 +32,7 @@ class ListItemCircle extends StatelessWidget {
               children: [
                 Text(
                   item.title,
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                 ),
               ],
             ),

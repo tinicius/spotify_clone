@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:spotify_clone/modules/home/widget/components/page_two_components.dart/Section.dart';
+import 'package:spotify_clone/application/themes/theme_config.dart';
+import 'package:spotify_clone/modules/home/widget/components/page_two_components.dart/section.dart';
 import 'package:spotify_clone/modules/home/widget/components/page_two_components.dart/search_bar.dart';
 import 'package:spotify_clone/modules/home/widget/components/page_two_components.dart/search_custom_delegate.dart';
 
@@ -19,8 +20,11 @@ class _PageTwoState extends State<PageTwo> with SingleTickerProviderStateMixin {
             headerSliverBuilder:
                 (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
-                const SliverAppBar(
-                  title: Text("Buscar"),
+                SliverAppBar(
+                  title: Text(
+                    "Buscar",
+                    style: ThemeConfig().getTextStyle(fontSize: 24),
+                  ),
                 )
               ];
             },
@@ -28,12 +32,13 @@ class _PageTwoState extends State<PageTwo> with SingleTickerProviderStateMixin {
               shrinkWrap: true,
               children: [
                 GestureDetector(
-                    onTap: () {
-                      showSearch(
-                          context: context, delegate: SearchCustomDelegate());
-                    },
-                    child: SearchBar()),
-                Section(
+                  onTap: () => showSearch(
+                    context: context,
+                    delegate: SearchCustomDelegate(),
+                  ),
+                  child: const SearchBar(),
+                ),
+                const Section(
                   title: "Seus gêneros favoritos",
                 )
               ],

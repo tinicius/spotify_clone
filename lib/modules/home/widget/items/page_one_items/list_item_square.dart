@@ -34,7 +34,7 @@ class ListItemSquare extends StatelessWidget {
               children: [
                 Text(
                   item.title,
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                 ),
                 Text(
                   item.subtitle!,

@@ -34,7 +34,7 @@ class GridHomeItem extends StatelessWidget {
               child: Center(
                 child: Text(
                   gridItemModel.title,
-                  style: const TextStyle(color: Colors.white),
+                  style: ThemeConfig().getTextStyle(fontSize: 12),
                 ),
               ),
             ),
