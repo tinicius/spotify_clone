@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:spotify_clone/application/bindings/application_bindings.dart';
 import 'package:spotify_clone/application/themes/theme_config.dart';
 import 'package:spotify_clone/modules/home/home_module.dart';
+import 'package:spotify_clone/modules/login/login_module.dart';
 import 'package:spotify_clone/modules/splash/splash_module.dart';
 import 'package:spotify_clone/repositories/firebase_repository.dart';
 import 'package:spotify_clone/repositories/remote_config_repository.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
       getPages: [
         ...SplashModule().routes,
         ...HomeModule().routes,
+        ...LoginModule().routes,
       ],
     );
   }
