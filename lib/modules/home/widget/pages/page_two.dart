@@ -40,6 +40,12 @@ class _PageTwoState extends State<PageTwo> with SingleTickerProviderStateMixin {
                 ),
                 const Section(
                   title: "Seus gêneros favoritos",
+                ),
+                const Section(
+                  title: "Seus gêneros favoritos",
+                ),
+                const Section(
+                  title: "Seus gêneros favoritos",
                 )
               ],
             )),

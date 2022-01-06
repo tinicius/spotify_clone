@@ -18,7 +18,6 @@ class Section extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(
             left: 10,
-            bottom: 10,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -35,9 +34,6 @@ class Section extends StatelessWidget {
           items: [
             SectionItemModel(image: imageUrl, title: "1"),
             SectionItemModel(image: imageUrl, title: "2"),
-            SectionItemModel(image: imageUrl, title: "3"),
-            SectionItemModel(image: imageUrl, title: "4"),
-            SectionItemModel(image: imageUrl, title: "5"),
           ],
         )
       ],

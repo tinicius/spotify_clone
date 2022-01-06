@@ -9,7 +9,7 @@ class SectionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10),
+      padding: const EdgeInsets.only(),
       child: Stack(
         children: [
           Container(

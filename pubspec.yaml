@@ -36,6 +36,14 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.1
   google_fonts: ^2.1.1
+  spotify: ^0.6.0
+  firebase_core: ^1.10.6
+  firebase_remote_config: ^1.0.3
+  url_launcher: ^6.0.17
+  uni_links: ^0.5.1
+  http: ^0.13.4
+  webview_flutter: ^3.0.0
+  flutter_web_auth: ^0.4.0
 
 dev_dependencies:
   flutter_test:

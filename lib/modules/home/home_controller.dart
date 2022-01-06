@@ -7,7 +7,7 @@ import 'package:spotify_clone/modules/home/widget/pages/page_two.dart';
 
 //TODO remove this
 var imageUrl =
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWLJMavqBKffWcIHCm3fXFUSaoRYCw0bFveAfEicsQtZwUhQq3BWbGto_eZxpzUoyPax8&usqp=CAU";
+    "https://yt3.ggpht.com/CK-gE7gDLuUCh4nqpuofIyya-I5p57lGyof00FE1QtjLZNCLRRPK_Wm5WVXi92GjXi9Sw5wm=w1060-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj";
 
 class HomeController extends GetxController {
   RxInt selectedIndex = 0.obs;

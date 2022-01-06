@@ -14,19 +14,23 @@ class GridSection extends StatefulWidget {
 class _GridSectionState extends State<GridSection> {
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-        itemCount: widget.items.length,
-        shrinkWrap: true,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-          childAspectRatio: 110 / 60,
-        ),
-        itemBuilder: (context, index) {
-          return SectionItem(
-            item: widget.items[index],
-          );
-        });
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: GridView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: widget.items.length,
+          shrinkWrap: true,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 8,
+            crossAxisSpacing: 8,
+            childAspectRatio: 110 / 60,
+          ),
+          itemBuilder: (context, index) {
+            return SectionItem(
+              item: widget.items[index],
+            );
+          }),
+    );
   }
 }
