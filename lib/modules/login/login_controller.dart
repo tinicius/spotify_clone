@@ -5,11 +5,21 @@ class LoginController extends GetxController {
   final SpotifyApiRepository _spotifyApiRepository = SpotifyApiRepository();
 
   Future<void> sign() async {
-    try{
+    try {
       await _spotifyApiRepository.sign();
-    }
-    catch(error){
+      Get.offNamed("/home");
+    } catch (error) {
       throw Exception("Erro ao realizar autenticação");
     }
   }
 }
+
+
+
+
+
+
+
+
+
+

@@ -34,6 +34,8 @@ class GridHomeItem extends StatelessWidget {
               child: Center(
                 child: Text(
                   gridItemModel.title,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
                   style: ThemeConfig().getTextStyle(fontSize: 12),
                 ),
               ),

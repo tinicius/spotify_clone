@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:spotify_clone/application/themes/theme_config.dart';
 import 'package:spotify_clone/models/section_item_model.dart';
 import 'package:spotify_clone/modules/home/home_controller.dart';

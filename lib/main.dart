@@ -7,7 +7,6 @@ import 'package:spotify_clone/modules/home/home_module.dart';
 import 'package:spotify_clone/modules/login/login_module.dart';
 import 'package:spotify_clone/modules/splash/splash_module.dart';
 import 'package:spotify_clone/repositories/firebase_repository.dart';
-import 'package:spotify_clone/repositories/remote_config_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

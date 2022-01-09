@@ -47,13 +47,13 @@ class PageOne extends GetView<HomeController> {
                   Flexible(
                       fit: FlexFit.loose,
                       child: HorizontalList(
-                        title: "Seus programas",
+                        title: "Playlists para você curtir",
                         listGridItems: controller.list1,
                       )),
                   Flexible(
                       fit: FlexFit.loose,
                       child: HorizontalList(
-                        title: "Seus programas",
+                        title: "Albuns para você curtir",
                         listGridItems: controller.list2,
                       ))
                 ],

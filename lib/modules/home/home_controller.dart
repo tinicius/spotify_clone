@@ -1,15 +1,20 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:spotify/spotify.dart';
 import 'package:spotify_clone/models/grid_item_model.dart';
 import 'package:spotify_clone/modules/home/widget/pages/page_one.dart';
 import 'package:spotify_clone/modules/home/widget/pages/page_three.dart';
 import 'package:spotify_clone/modules/home/widget/pages/page_two.dart';
+import 'package:spotify_clone/repositories/spotify_api_repository.dart';
 
 //TODO remove this
-var imageUrl =
-    "https://yt3.ggpht.com/CK-gE7gDLuUCh4nqpuofIyya-I5p57lGyof00FE1QtjLZNCLRRPK_Wm5WVXi92GjXi9Sw5wm=w1060-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj";
+var imageUrl = "https://pics.me.me/aaaaaaaaaaaaa-69514034.png";
 
 class HomeController extends GetxController {
+  SpotifyApiRepository spotifyApiRepository = Get.find<SpotifyApiRepository>();
+
   RxInt selectedIndex = 0.obs;
 
   static const TextStyle optionStyle =
@@ -33,25 +38,43 @@ class HomeController extends GetxController {
   List<GridItemModel> list1 = [];
   List<GridItemModel> list2 = [];
 
+  void resetData() {
+    gridHome = [];
+    list1 = [];
+    list2 = [];
+  }
+
   Future<void> loadData() async {
-    gridHome = List.generate(
-      6,
-      (index) => GridItemModel(title: "Title $index", image: imageUrl),
-    );
+    resetData();
 
-    list1 = List.generate(
-      6,
-      (index) => GridItemModel(
-          title: "Title $index",
-          // subtitle: "Subitle $index",
-          image: imageUrl),
-    );
+    List<TrackSimple> musics = await spotifyApiRepository.getRecentlyPlayed();
 
-    list2 = List.generate(
-      6,
-      (index) => GridItemModel(
-          title: "Title $index", subtitle: "Subitle $index", image: imageUrl),
-    );
+    for (var element in musics) {
+      if (gridHome.length < 6) {
+        String image =
+            await spotifyApiRepository.getImageOfTrackSimple(element);
+
+        gridHome.add(GridItemModel(title: element.name!, image: image));
+      }
+    }
+
+    List<PlaylistSimple> playlists =
+        await spotifyApiRepository.getRecommendationsPlaylists();
+
+    for (var element in playlists) {
+      list1.add(GridItemModel(
+          title: element.name!, image: element.images!.first.url!));
+    }
+
+    for (var element in musics) {
+      if (list2.length < 6) {
+        AlbumSimple albumSimple =
+            await spotifyApiRepository.getAlbumOfTrackSimple(element);
+
+        list2.add(GridItemModel(
+            title: albumSimple.name!, image: albumSimple.images!.first.url!));
+      }
+    }
   }
 
   final List<Widget> _widgetOptions = <Widget>[
