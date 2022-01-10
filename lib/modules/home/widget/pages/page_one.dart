@@ -14,22 +14,34 @@ class PageOne extends GetView<HomeController> {
       appBar: AppBar(
         elevation: 0.0,
         title: Text(title),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Icon(Icons.flash_on_outlined),
+        actions: [
+          InkWell(
+            onTap: () {},
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Icon(Icons.flash_on_outlined),
+            ),
           ),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Icon(Icons.history_outlined),
+          InkWell(
+            onTap: () {},
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Icon(Icons.history_outlined),
+            ),
           ),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Icon(Icons.inbox_outlined),
+          InkWell(
+            onTap: () {},
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Icon(Icons.inbox_outlined),
+            ),
           ),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Icon(Icons.settings_outlined),
+          InkWell(
+            onTap: () {},
+            child:const  Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Icon(Icons.settings_outlined),
+            ),
           ),
         ],
       ),
@@ -43,19 +55,49 @@ class PageOne extends GetView<HomeController> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  GridHome(listGridItems: controller.gridHome),
-                  Flexible(
-                      fit: FlexFit.loose,
-                      child: HorizontalList(
-                        title: "Playlists para você curtir",
-                        listGridItems: controller.list1,
-                      )),
-                  Flexible(
-                      fit: FlexFit.loose,
-                      child: HorizontalList(
-                        title: "Albuns para você curtir",
-                        listGridItems: controller.list2,
-                      ))
+                  controller.gridHome.isNotEmpty
+                      ? GridHome(listGridItems: controller.gridHome)
+                      : Container(),
+                  controller.list1.isNotEmpty
+                      ? Flexible(
+                          fit: FlexFit.loose,
+                          child: HorizontalList(
+                            title: "Playlists para você curtir",
+                            listGridItems: controller.list1,
+                          ))
+                      : Container(),
+                  controller.list2.isNotEmpty
+                      ? Flexible(
+                          fit: FlexFit.loose,
+                          child: HorizontalList(
+                            title: "Albuns para você curtir",
+                            listGridItems: controller.list2,
+                          ))
+                      : Container(),
+                  controller.playlistItems1.isNotEmpty
+                      ? Flexible(
+                          fit: FlexFit.loose,
+                          child: HorizontalList(
+                            title: "Músicas para você curtir",
+                            listGridItems: controller.playlistItems1,
+                          ))
+                      : Container(),
+                  controller.playlistItems2.isNotEmpty
+                      ? Flexible(
+                          fit: FlexFit.loose,
+                          child: HorizontalList(
+                            title: "Músicas para você curtir",
+                            listGridItems: controller.playlistItems2,
+                          ))
+                      : Container(),
+                  controller.playlistItems3.isNotEmpty
+                      ? Flexible(
+                          fit: FlexFit.loose,
+                          child: HorizontalList(
+                            title: "Músicas para você curtir",
+                            listGridItems: controller.playlistItems3,
+                          ))
+                      : Container(),
                 ],
               ),
             );

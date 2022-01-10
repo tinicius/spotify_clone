@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:spotify_clone/application/themes/theme_config.dart';
 import 'package:spotify_clone/modules/home/home_controller.dart';
 import 'package:spotify_clone/modules/login/login_controller.dart';
 
@@ -22,15 +24,21 @@ class LoginPage extends GetView<LoginController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  width: 150,
-                  height: 150,
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                  child: Image.network(
-                    imageUrl,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                    width: 150,
+                    height: 150,
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                    child: Stack(
+                      children: [
+                        Image.asset("assets/images/spotify-logo.png"),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Text("Clone",
+                              style: ThemeConfig().getTextStyle(
+                                  fontSize: 24, fontColor: ThemeConfig.green)),
+                        )
+                      ],
+                    )),
                 const SizedBox(
                   height: 25,
                 ),

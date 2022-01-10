@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:spotify/spotify.dart';
 import 'package:spotify_clone/repositories/remote_config_repository.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
@@ -38,27 +36,34 @@ class SpotifyApiService {
         preferEphemeral: true);
 
     spotify = SpotifyApi.fromAuthCodeGrant(grant, result);
+    SpotifyApiCredentials? a = await spotify?.getCredentials();
+    print(a);
   }
 
   Future<List<Artist>> getRecommendationsArtists() async {
+    //TODO
     return [];
   }
 
   Future<List<TrackSimple>> getRecentlyPlayed() async {
     List<TrackSimple> recentTracks = [];
 
-    Iterable<PlayHistory>? recentTracksHistory =
-        await spotify?.me.recentlyPlayed();
+    try {
+      Iterable<PlayHistory>? recentTracksHistory =
+          await spotify?.me.recentlyPlayed();
 
-    recentTracksHistory?.forEach((element) {
-      recentTracks.add(element.track!);
-    });
+      recentTracksHistory?.forEach((element) {
+        recentTracks.add(element.track!);
+      });
 
-    return recentTracks;
+      return recentTracks;
+    } catch (error) {
+      return recentTracks;
+    }
   }
 
-  Future<String> getImageOfTrackSimple(TrackSimple trackSimple) async {
-    Track? track = await spotify?.tracks.get(trackSimple.id!);
+  Future<String> getImageOfTrackId(String trackId) async {
+    Track? track = await spotify?.tracks.get(trackId);
     return track!.album!.images!.first.url!;
   }
 
@@ -70,14 +75,38 @@ class SpotifyApiService {
   Future<List<Artist>> getTopArtists() async {
     List<Artist> artists = [];
 
-    Iterable<ArtistSimple>? iterableArtists = await spotify?.me.topArtists();
+    try {
+      Iterable<ArtistSimple>? iterableArtists = await spotify?.me.topArtists();
 
-    for (ArtistSimple element in iterableArtists!) {
-      Artist? artist = await spotify?.artists.get(element.id!);
-      artists.add(artist!);
+      for (ArtistSimple element in iterableArtists!) {
+        Artist? artist = await spotify?.artists.get(element.id!);
+        artists.add(artist!);
+      }
+
+      return artists;
+    } catch (e) {
+      return artists;
     }
+  }
 
-    return artists;
+  Future<List<Track>> getTracksOfPlaylist(PlaylistSimple playlistSimple) async {
+    List<Track> tracks = [];
+
+    try {
+      Page<Track>? page = await spotify?.playlists
+          .getTracksByPlaylistId(playlistSimple.id)
+          .first();
+
+      Iterable<Track>? iterableTracks = page?.items;
+
+      iterableTracks?.forEach((element) {
+        tracks.add(element);
+      });
+
+      return tracks;
+    } catch (e) {
+      return tracks;
+    }
   }
 
   Future<List<PlaylistSimple>> getRecommendationsPlaylists() async {

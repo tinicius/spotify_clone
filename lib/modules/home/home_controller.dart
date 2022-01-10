@@ -38,10 +38,18 @@ class HomeController extends GetxController {
   List<GridItemModel> list1 = [];
   List<GridItemModel> list2 = [];
 
+  List<GridItemModel> playlistItems1 = [];
+  List<GridItemModel> playlistItems2 = [];
+  List<GridItemModel> playlistItems3 = [];
+
   void resetData() {
     gridHome = [];
     list1 = [];
     list2 = [];
+
+    playlistItems1 = [];
+    playlistItems2 = [];
+    playlistItems3 = [];
   }
 
   Future<void> loadData() async {
@@ -52,7 +60,7 @@ class HomeController extends GetxController {
     for (var element in musics) {
       if (gridHome.length < 6) {
         String image =
-            await spotifyApiRepository.getImageOfTrackSimple(element);
+            await spotifyApiRepository.getImageOfTrackId(element.id!);
 
         gridHome.add(GridItemModel(title: element.name!, image: image));
       }
@@ -73,6 +81,34 @@ class HomeController extends GetxController {
 
         list2.add(GridItemModel(
             title: albumSimple.name!, image: albumSimple.images!.first.url!));
+      }
+    }
+
+    for (var i = 0; i < 3; i++) {
+      List<Track> tracks =
+          await spotifyApiRepository.getTracksOfPlaylist(playlists[i]);
+
+      if (i == 0) {
+        for (int i = 0; i < 10; i++) {
+          var element = tracks[i];
+          var image = await spotifyApiRepository.getImageOfTrackId(element.id!);
+
+          playlistItems1.add(GridItemModel(title: element.name!, image: image));
+        }
+      } else if (i == 1) {
+        for (int i = 0; i < 10; i++) {
+          var element = tracks[i];
+          var image = await spotifyApiRepository.getImageOfTrackId(element.id!);
+
+          playlistItems2.add(GridItemModel(title: element.name!, image: image));
+        }
+      } else {
+        for (int i = 0; i < 10; i++) {
+          var element = tracks[i];
+          var image = await spotifyApiRepository.getImageOfTrackId(element.id!);
+
+          playlistItems3.add(GridItemModel(title: element.name!, image: image));
+        }
       }
     }
   }

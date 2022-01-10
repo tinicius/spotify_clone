@@ -15,11 +15,18 @@ class HomePage extends GetView<HomeController> {
             showSelectedLabels: false,
             showUnselectedLabels: false,
             items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.search), label: 'Search'),
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.crop_square), label: 'Library')
+                icon: Icon(Icons.search),
+                label: 'Search',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.crop_square),
+                label: 'Library',
+              ),
             ],
             currentIndex: controller.selectedIndex.value,
             selectedItemColor: ThemeConfig.selectedItemColor,

@@ -17,9 +17,12 @@ class SpotifyApiRepository {
 
   Future<List<Artist>> getTopArtists() => _service.getTopArtists();
 
-  Future<String> getImageOfTrackSimple(TrackSimple trackSimple) =>
-      _service.getImageOfTrackSimple(trackSimple);
+  Future<String> getImageOfTrackId(String trackId) =>
+      _service.getImageOfTrackId(trackId);
 
   Future<AlbumSimple> getAlbumOfTrackSimple(TrackSimple trackSimple) =>
       _service.getAlbumOfTrackSimple(trackSimple);
+
+  Future<List<Track>> getTracksOfPlaylist(PlaylistSimple playlistSimple) =>
+      _service.getTracksOfPlaylist(playlistSimple);
 }
