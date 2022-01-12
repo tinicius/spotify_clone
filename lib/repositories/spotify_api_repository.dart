@@ -25,4 +25,6 @@ class SpotifyApiRepository {
 
   Future<List<Track>> getTracksOfPlaylist(PlaylistSimple playlistSimple) =>
       _service.getTracksOfPlaylist(playlistSimple);
+
+  Future<List<Category>> getCategories() => _service.getCategories();
 }

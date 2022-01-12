@@ -4,11 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 class ThemeConfig {
   static String get title => "Spotify";
 
-  getTextStyle({double fontSize = 12, Color fontColor = Colors.white}) {
+  getTextStyle(
+      {double fontSize = 12,
+      Color fontColor = Colors.white,
+      FontWeight fontWeight = FontWeight.normal}) {
     return GoogleFonts.poppins(
-      color: fontColor,
-      fontSize: fontSize,
-    );
+        color: fontColor, fontSize: fontSize, fontWeight: fontWeight);
   }
 
   static Color get black => Colors.black;

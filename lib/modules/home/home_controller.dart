@@ -1,9 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/simple/list_notifier.dart';
 import 'package:spotify/spotify.dart';
 import 'package:spotify_clone/models/grid_item_model.dart';
+import 'package:spotify_clone/models/section_item_model.dart';
 import 'package:spotify_clone/modules/home/widget/pages/page_one.dart';
 import 'package:spotify_clone/modules/home/widget/pages/page_three.dart';
 import 'package:spotify_clone/modules/home/widget/pages/page_two.dart';
@@ -34,22 +34,24 @@ class HomeController extends GetxController {
     }
   }
 
-  List<GridItemModel> gridHome = [];
-  List<GridItemModel> list1 = [];
-  List<GridItemModel> list2 = [];
+  RxList<GridItemModel> gridHome = <GridItemModel>[].obs;
+  RxList<GridItemModel> list1 = <GridItemModel>[].obs;
+  RxList<GridItemModel> list2 = <GridItemModel>[].obs;
 
-  List<GridItemModel> playlistItems1 = [];
-  List<GridItemModel> playlistItems2 = [];
-  List<GridItemModel> playlistItems3 = [];
+  RxList<GridItemModel> playlistItems1 = <GridItemModel>[].obs;
+  RxList<GridItemModel> playlistItems2 = <GridItemModel>[].obs;
+  RxList<GridItemModel> playlistItems3 = <GridItemModel>[].obs;
+
+  RxList<SectionItemModel> allSections = <SectionItemModel>[].obs;
 
   void resetData() {
-    gridHome = [];
-    list1 = [];
-    list2 = [];
+    gridHome = <GridItemModel>[].obs;
+    list1 = <GridItemModel>[].obs;
+    list2 = <GridItemModel>[].obs;
 
-    playlistItems1 = [];
-    playlistItems2 = [];
-    playlistItems3 = [];
+    playlistItems1 = <GridItemModel>[].obs;
+    playlistItems2 = <GridItemModel>[].obs;
+    playlistItems3 = <GridItemModel>[].obs;
   }
 
   Future<void> loadData() async {
@@ -113,13 +115,43 @@ class HomeController extends GetxController {
     }
   }
 
+  getCategories() async {
+    List<Category> categories = await spotifyApiRepository.getCategories();
+    for (var element in categories) {
+      allSections.add(SectionItemModel(
+          title: element.name!, image: element.icons!.first.url!));
+    }
+  }
+
   final List<Widget> _widgetOptions = <Widget>[
     PageOne(title: getPageOneTitle()),
-    const PageTwo(),
+    PageTwo(),
     const PageThree()
   ];
 
   void onItemTapped(int index) {
     selectedIndex.value = index;
+  }
+
+  @override
+  void onClose() {
+    // TODO: implement onClose
+  }
+
+  @override
+  void onInit() {
+    loadData();
+    getCategories();
+    super.onInit();
+  }
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+  }
+
+  @override
+  void refresh() {
+    // TODO: implement refresh
   }
 }

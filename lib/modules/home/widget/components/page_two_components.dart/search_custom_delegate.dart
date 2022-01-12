@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:spotify_clone/application/themes/theme_config.dart';
 
 class SearchCustomDelegate extends SearchDelegate {
@@ -8,16 +9,20 @@ class SearchCustomDelegate extends SearchDelegate {
   @override
   ThemeData appBarTheme(BuildContext context) {
     return ThemeData(
-        appBarTheme: AppBarTheme(
-          elevation: 0,
-          color: ThemeConfig.grey,
-
-          //app bar color I wanted
-        ),
-        textSelectionTheme: TextSelectionThemeData(
-            selectionHandleColor: Colors.red, // Change bubble to red
-            cursorColor: ThemeConfig.green,
-            selectionColor: Colors.red));
+      primaryColor: ThemeConfig.grey,
+      dividerTheme: const DividerThemeData(
+        color: Colors.white,
+      ),
+      primaryIconTheme: const IconThemeData(color: Colors.white),
+      inputDecorationTheme: InputDecorationTheme(
+        focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: ThemeConfig.grey)),
+      ),
+      brightness: Brightness.dark,
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: ThemeConfig.green,
+      ),
+    );
   }
 
   @override
@@ -44,17 +49,35 @@ class SearchCustomDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return  Text(
-      "results",
-      style: ThemeConfig().getTextStyle(),
+    return Expanded(
+      child: Container(
+        color: Colors.black,
+      ),
     );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return  Text(
-      "suggestions",
-      style:ThemeConfig().getTextStyle(),
+    return Expanded(
+      child: Container(
+        height: double.infinity,
+        width: double.infinity,
+        color: Colors.black,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Encontre o que você quer ouvir",
+              style: ThemeConfig()
+                  .getTextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+            Text(
+              "Busque artistas, músicas, poscasts e muito mais.",
+              style: ThemeConfig().getTextStyle(fontSize: 12),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

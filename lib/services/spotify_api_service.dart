@@ -2,6 +2,9 @@ import 'package:spotify/spotify.dart';
 import 'package:spotify_clone/repositories/remote_config_repository.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 class SpotifyApiService {
   SpotifyApi? spotify;
   RemoteConfigRepository remoteConfigRepository = RemoteConfigRepository();
@@ -36,8 +39,6 @@ class SpotifyApiService {
         preferEphemeral: true);
 
     spotify = SpotifyApi.fromAuthCodeGrant(grant, result);
-    SpotifyApiCredentials? a = await spotify?.getCredentials();
-    print(a);
   }
 
   Future<List<Artist>> getRecommendationsArtists() async {
@@ -120,5 +121,34 @@ class SpotifyApiService {
     });
 
     return playlists;
+  }
+
+  Future<List<Category>> getCategories() async {
+    List<Category> categories = [];
+
+    var client = http.Client();
+
+    SpotifyApiCredentials? credentials = await spotify?.getCredentials();
+
+    try {
+      var response = await http.get(
+        Uri.parse(
+          "https://api.spotify.com/v1/browse/categories",
+        ),
+        headers: {"Authorization": "Bearer ${credentials?.accessToken}}"},
+      );
+      if (response.statusCode == 200) {
+        var jsonResponse = jsonDecode(response.body);
+
+        for (var item in jsonResponse['categories']['items']) {
+          
+          categories.add(Category.fromJson(item));
+        }
+      } 
+    } finally {
+      client.close();
+    }
+
+    return categories;
   }
 }
