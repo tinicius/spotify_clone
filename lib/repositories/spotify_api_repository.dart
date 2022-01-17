@@ -1,14 +1,12 @@
 import 'package:get/get.dart';
 import 'package:spotify/spotify.dart';
+import 'package:spotify_clone/models/search_result.dart';
 import 'package:spotify_clone/services/spotify_api_service.dart';
 
 class SpotifyApiRepository {
   final SpotifyApiService _service = Get.find<SpotifyApiService>();
 
   Future<void> sign() => _service.auth();
-
-  Future<List<Artist>> getRecommendationsArtists() =>
-      _service.getRecommendationsArtists();
 
   Future<List<TrackSimple>> getRecentlyPlayed() => _service.getRecentlyPlayed();
 
@@ -27,4 +25,7 @@ class SpotifyApiRepository {
       _service.getTracksOfPlaylist(playlistSimple);
 
   Future<List<Category>> getCategories() => _service.getCategories();
+  
+  Future<List<SearchResult>> search(String text, List<SearchType> types) =>
+      _service.search(text, types);
 }

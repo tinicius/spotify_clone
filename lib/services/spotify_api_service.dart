@@ -1,4 +1,5 @@
 import 'package:spotify/spotify.dart';
+import 'package:spotify_clone/models/search_result.dart';
 import 'package:spotify_clone/repositories/remote_config_repository.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 
@@ -10,7 +11,6 @@ class SpotifyApiService {
   RemoteConfigRepository remoteConfigRepository = RemoteConfigRepository();
 
   Future<void> auth() async {
-    //Get the client credentials from RemoteConfig, in Json format
     final Map<String, dynamic> credentialsJson =
         await remoteConfigRepository.getClientInfo();
 
@@ -20,6 +20,7 @@ class SpotifyApiService {
     final grant = SpotifyApi.authorizationCodeGrant(credentials);
 
     const redirectUri = 'yourname:/';
+
     final scopes = [
       'user-read-email',
       'user-library-read',
@@ -34,16 +35,12 @@ class SpotifyApiService {
         grant.getAuthorizationUrl(Uri.parse(redirectUri), scopes: scopes);
 
     final result = await FlutterWebAuth.authenticate(
-        url: authUri.toString(),
-        callbackUrlScheme: "yourname",
-        preferEphemeral: true);
+      url: authUri.toString(),
+      callbackUrlScheme: "yourname",
+      preferEphemeral: true,
+    );
 
     spotify = SpotifyApi.fromAuthCodeGrant(grant, result);
-  }
-
-  Future<List<Artist>> getRecommendationsArtists() async {
-    //TODO
-    return [];
   }
 
   Future<List<TrackSimple>> getRecentlyPlayed() async {
@@ -141,14 +138,35 @@ class SpotifyApiService {
         var jsonResponse = jsonDecode(response.body);
 
         for (var item in jsonResponse['categories']['items']) {
-          
           categories.add(Category.fromJson(item));
         }
-      } 
+      }
     } finally {
       client.close();
     }
 
     return categories;
+  }
+
+  Future<List<SearchResult>> search(String text, List<SearchType> types) async {
+    List<SearchResult> searchResult = [];
+
+    if (text.isNotEmpty) {
+      for (var element in types) {
+        BundledPages? pages = spotify?.search.get(text);
+        List<Page<dynamic>> listPages = await pages!.first();
+        Page<dynamic> firstPage = listPages.first;
+
+        for (var item in firstPage.items!) {
+          PlaylistSimple simple = item;
+
+          searchResult.add(SearchResult(
+              name: simple.name!,
+              type: element,
+              image: simple.images?.first.url));
+        }
+      }
+    }
+    return searchResult;
   }
 }

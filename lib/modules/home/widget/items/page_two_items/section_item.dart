@@ -9,6 +9,8 @@ class SectionItem extends StatelessWidget {
 
   final SectionItemModel item;
 
+  ShapeBorder? get a => null;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,35 +18,55 @@ class SectionItem extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            child: Align(
+            width: double.infinity,
+            height: double.infinity,
+            color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                .withOpacity(1.0),
+            child: Stack(
               alignment: Alignment.bottomRight,
-              child: Transform.rotate(
-                angle: 0,
-                child: Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(0, -3), // changes position of shadow
+              children: [
+                Positioned(
+                  right: -10,
+                  child: Transform.rotate(
+                    angle: (math.pi / 180) * 20,
+                    child: Container(
+                      width: 60,
+                      height: 60,
+                      color: Colors.white,
+                      child: ClipPath(
+                        child: Image.network(item.image),
                       ),
-                    ],
-                  ),
-                  width: 50,
-                  height: 50,
-                  child: Image.network(
-                    item.image,
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-            // width: double.infinity,
-            decoration: BoxDecoration(
-                color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                    .withOpacity(1.0),
-                border: Border.all()),
           ),
+          // Container(
+          //   width: double.infinity,
+          //   child: Container(
+          //     child: Image.network(
+          //       item.image,
+          //     ),
+          //     decoration: BoxDecoration(
+          //       boxShadow: [
+          //         BoxShadow(
+          //           color: Colors.black.withOpacity(0.5),
+          //           spreadRadius: 1,
+          //           blurRadius: 11,
+          //           offset: const Offset(0, -2), // changes position of shadow
+          //         ),
+          //       ],
+          //     ),
+
+          //   ),
+          //   // width: double.infinity,
+          //   decoration: BoxDecoration(
+          //       color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+          //           .withOpacity(1.0),
+          //       border: Border.all()),
+          // ),
+
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(

@@ -4,18 +4,27 @@ import 'package:spotify_clone/modules/home/home_controller.dart';
 import 'package:spotify_clone/modules/home/widget/components/page_one_components/grid_home.dart';
 import 'package:spotify_clone/modules/home/widget/components/page_one_components/horizontal_list.dart';
 
-class PageOne extends GetView<HomeController> {
+class PageOne extends StatefulWidget {
   const PageOne({Key? key, required this.title}) : super(key: key);
   final String title;
+  @override
+  _PageOneState createState() => _PageOneState();
+}
+
+class _PageOneState extends State<PageOne> {
+  HomeController controller = Get.find<HomeController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        title: Text(title),
+        title: Text(widget.title),
         actions: [
           InkWell(
-            onTap: () {},
+            onTap: () {
+              print(controller.gridHome.value);
+            },
             child: const Padding(
               padding: EdgeInsets.all(8.0),
               child: Icon(Icons.flash_on_outlined),
@@ -51,7 +60,9 @@ class PageOne extends GetView<HomeController> {
           children: [
             controller.gridHome.isNotEmpty
                 ? GridHome(listGridItems: controller.gridHome)
-                : Container(),
+                : Container(
+                    child: Text("empty"),
+                  ),
             controller.list1.isNotEmpty
                 ? Flexible(
                     fit: FlexFit.loose,
@@ -91,7 +102,7 @@ class PageOne extends GetView<HomeController> {
                       title: "Músicas para você curtir",
                       listGridItems: controller.playlistItems3,
                     ))
-                : Container(),
+                : Container(child: Text("empty")),
           ],
         ),
       )),

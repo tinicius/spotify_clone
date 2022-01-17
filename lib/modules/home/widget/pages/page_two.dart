@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotify_clone/application/themes/theme_config.dart';
 import 'package:spotify_clone/modules/home/home_controller.dart';
-import 'package:spotify_clone/modules/home/widget/components/page_two_components.dart/search_bar.dart';
-import 'package:spotify_clone/modules/home/widget/components/page_two_components.dart/search_custom_delegate.dart';
+import 'package:spotify_clone/modules/home/widget/components/page_two_components.dart/search/search_bar.dart';
+import 'package:spotify_clone/modules/home/widget/components/page_two_components.dart/search/search_custom_delegate.dart';
 import 'package:spotify_clone/modules/home/widget/components/page_two_components.dart/section.dart';
 
 class PageTwo extends GetView<HomeController> {

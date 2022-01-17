@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/list_notifier.dart';
 import 'package:spotify/spotify.dart';
 import 'package:spotify_clone/models/grid_item_model.dart';
+import 'package:spotify_clone/models/search_result.dart';
 import 'package:spotify_clone/models/section_item_model.dart';
 import 'package:spotify_clone/modules/home/widget/pages/page_one.dart';
 import 'package:spotify_clone/modules/home/widget/pages/page_three.dart';
@@ -27,7 +28,7 @@ class HomeController extends GetxController {
 
     if (dateTime.hour < 12) {
       return "Bom dia";
-    } else if (dateTime.hour > 18) {
+    } else if (dateTime.hour > 12 && dateTime.hour < 18) {
       return "Boa Tarde";
     } else {
       return "Boa Noite";
@@ -43,6 +44,8 @@ class HomeController extends GetxController {
   RxList<GridItemModel> playlistItems3 = <GridItemModel>[].obs;
 
   RxList<SectionItemModel> allSections = <SectionItemModel>[].obs;
+
+  RxList<SearchResult> searchResult = <SearchResult>[].obs;
 
   void resetData() {
     gridHome = <GridItemModel>[].obs;
@@ -123,9 +126,23 @@ class HomeController extends GetxController {
     }
   }
 
+  void resetSearch() {
+    searchResult = <SearchResult>[].obs;
+  }
+
+  Future<void> search(String text) async {
+    try {
+      searchResult.value = await spotifyApiRepository.search(
+          text, [SearchType.album, SearchType.artist, SearchType.track]);
+    } catch (e) {
+      searchResult.value = [];
+    }
+  }
+
   final List<Widget> _widgetOptions = <Widget>[
+    //TODO fix date
     PageOne(title: getPageOneTitle()),
-    PageTwo(),
+    const PageTwo(),
     const PageThree()
   ];
 
@@ -135,11 +152,12 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {
-    // TODO: implement onClose
+    print("on close");
   }
 
   @override
   void onInit() {
+    print("on init");
     loadData();
     getCategories();
     super.onInit();
@@ -147,11 +165,13 @@ class HomeController extends GetxController {
 
   @override
   void onReady() {
-    // TODO: implement onReady
+    print("on ready");
+    //loadData();
   }
 
   @override
   void refresh() {
-    // TODO: implement refresh
+    print("refresh");
+    //loadData();
   }
 }
