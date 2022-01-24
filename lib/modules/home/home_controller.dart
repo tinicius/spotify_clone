@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/list_notifier.dart';
 import 'package:spotify/spotify.dart';
 import 'package:spotify_clone/models/grid_item_model.dart';
 import 'package:spotify_clone/models/search_result.dart';
@@ -10,69 +9,52 @@ import 'package:spotify_clone/modules/home/widget/pages/page_three.dart';
 import 'package:spotify_clone/modules/home/widget/pages/page_two.dart';
 import 'package:spotify_clone/repositories/spotify_api_repository.dart';
 
-//TODO remove this
-var imageUrl = "https://pics.me.me/aaaaaaaaaaaaa-69514034.png";
-
 class HomeController extends GetxController {
+  //Repositories
   SpotifyApiRepository spotifyApiRepository = Get.find<SpotifyApiRepository>();
 
-  RxInt selectedIndex = 0.obs;
+  User? user;
 
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  //Bottom navigation attributes
+  RxInt selectedIndex = 0.obs;
+  List<Widget> _widgetOptions = <Widget>[];
 
   Widget get page => _widgetOptions.elementAt(selectedIndex.value);
 
-  static String getPageOneTitle() {
-    DateTime dateTime = DateTime.now();
-
-    if (dateTime.hour < 12) {
-      return "Bom dia";
-    } else if (dateTime.hour > 12 && dateTime.hour < 18) {
-      return "Boa Tarde";
-    } else {
-      return "Boa Noite";
-    }
+  void onItemTapped(int index) {
+    selectedIndex.value = index;
   }
+
+  //Page one attributes
+
+  //Define a number of itens in menus
+  static const int _numberOfItens = 6;
+
+  String title = "";
 
   RxList<GridItemModel> gridHome = <GridItemModel>[].obs;
   RxList<GridItemModel> list1 = <GridItemModel>[].obs;
   RxList<GridItemModel> list2 = <GridItemModel>[].obs;
-
   RxList<GridItemModel> playlistItems1 = <GridItemModel>[].obs;
   RxList<GridItemModel> playlistItems2 = <GridItemModel>[].obs;
   RxList<GridItemModel> playlistItems3 = <GridItemModel>[].obs;
 
-  RxList<SectionItemModel> allSections = <SectionItemModel>[].obs;
-
-  RxList<SearchResult> searchResult = <SearchResult>[].obs;
-
-  void resetData() {
-    gridHome = <GridItemModel>[].obs;
-    list1 = <GridItemModel>[].obs;
-    list2 = <GridItemModel>[].obs;
-
-    playlistItems1 = <GridItemModel>[].obs;
-    playlistItems2 = <GridItemModel>[].obs;
-    playlistItems3 = <GridItemModel>[].obs;
-  }
-
   Future<void> loadData() async {
     resetData();
 
+    //Get a list of recent tracks
     List<TrackSimple> musics = await spotifyApiRepository.getRecentlyPlayed();
 
-    for (var element in musics) {
-      if (gridHome.length < 6) {
-        String image =
-            await spotifyApiRepository.getImageOfTrackId(element.id!);
-
-        gridHome.add(GridItemModel(title: element.name!, image: image));
-      }
-    }
-
+    //Get a list of suggested playlists
     List<PlaylistSimple> playlists =
         await spotifyApiRepository.getRecommendationsPlaylists();
+
+    for (var element = 0; element < _numberOfItens; element++) {
+      String image =
+          await spotifyApiRepository.getImageOfTrackId(musics[element].id!);
+
+      gridHome.add(GridItemModel(title: musics[element].name!, image: image));
+    }
 
     for (var element in playlists) {
       list1.add(GridItemModel(
@@ -118,7 +100,34 @@ class HomeController extends GetxController {
     }
   }
 
-  getCategories() async {
+  void resetData() {
+    gridHome = <GridItemModel>[].obs;
+
+    list1 = <GridItemModel>[].obs;
+    list2 = <GridItemModel>[].obs;
+
+    playlistItems1 = <GridItemModel>[].obs;
+    playlistItems2 = <GridItemModel>[].obs;
+    playlistItems3 = <GridItemModel>[].obs;
+  }
+
+  void setPageOneTitle() {
+    DateTime dateTime = DateTime.now();
+
+    if (dateTime.hour < 12) {
+      title = "Bom dia";
+    } else if (dateTime.hour > 12 && dateTime.hour < 18) {
+      title = "Boa Tarde";
+    } else {
+      title = "Boa Noite";
+    }
+  }
+
+  //Page two attributes
+  RxList<SectionItemModel> allSections = <SectionItemModel>[].obs;
+  RxList<SearchResult> searchResult = <SearchResult>[].obs;
+
+  Future<void> getCategories() async {
     List<Category> categories = await spotifyApiRepository.getCategories();
     for (var element in categories) {
       allSections.add(SectionItemModel(
@@ -139,39 +148,29 @@ class HomeController extends GetxController {
     }
   }
 
-  final List<Widget> _widgetOptions = <Widget>[
-    //TODO fix date
-    PageOne(title: getPageOneTitle()),
-    const PageTwo(),
-    const PageThree()
-  ];
-
-  void onItemTapped(int index) {
-    selectedIndex.value = index;
+  //Page three attributes
+  Future<void> loadUser() async {
+    user = await spotifyApiRepository.getUser();
   }
 
-  @override
-  void onClose() {
-    print("on close");
-  }
-
-  @override
-  void onInit() {
-    print("on init");
+  Future<void> initHome() async {
+    await loadUser();
     loadData();
     getCategories();
+  }
+
+  //Overrides
+  @override
+  void onInit() {
+    setPageOneTitle();
+
+    _widgetOptions = [
+      //TODO fix date
+      PageOne(title: title),
+      const PageTwo(),
+      const PageThree(),
+    ];
+
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    print("on ready");
-    //loadData();
-  }
-
-  @override
-  void refresh() {
-    print("refresh");
-    //loadData();
   }
 }

@@ -23,7 +23,6 @@ class _PageOneState extends State<PageOne> {
         actions: [
           InkWell(
             onTap: () {
-              print(controller.gridHome.value);
             },
             child: const Padding(
               padding: EdgeInsets.all(8.0),
@@ -61,7 +60,6 @@ class _PageOneState extends State<PageOne> {
             controller.gridHome.isNotEmpty
                 ? GridHome(listGridItems: controller.gridHome)
                 : Container(
-                    child: Text("empty"),
                   ),
             controller.list1.isNotEmpty
                 ? Flexible(
@@ -102,7 +100,7 @@ class _PageOneState extends State<PageOne> {
                       title: "Músicas para você curtir",
                       listGridItems: controller.playlistItems3,
                     ))
-                : Container(child: Text("empty")),
+                : Container(),
           ],
         ),
       )),

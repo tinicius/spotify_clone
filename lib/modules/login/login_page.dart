@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:spotify_clone/application/themes/theme_config.dart';
-import 'package:spotify_clone/modules/home/home_controller.dart';
 import 'package:spotify_clone/modules/login/login_controller.dart';
 
 class LoginPage extends GetView<LoginController> {

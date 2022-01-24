@@ -1,7 +1,7 @@
+import 'package:flutter_web_auth/flutter_web_auth.dart' show FlutterWebAuth;
 import 'package:spotify/spotify.dart';
 import 'package:spotify_clone/models/search_result.dart';
 import 'package:spotify_clone/repositories/remote_config_repository.dart';
-import 'package:flutter_web_auth/flutter_web_auth.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -168,5 +168,16 @@ class SpotifyApiService {
       }
     }
     return searchResult;
+  }
+
+  Future<User> getUser() async {
+    User? user;
+
+    try {
+      user = await spotify!.me.get();
+    } catch (e) {
+      user = User();
+    }
+    return user;
   }
 }

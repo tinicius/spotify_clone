@@ -25,7 +25,9 @@ class SpotifyApiRepository {
       _service.getTracksOfPlaylist(playlistSimple);
 
   Future<List<Category>> getCategories() => _service.getCategories();
-  
+
   Future<List<SearchResult>> search(String text, List<SearchType> types) =>
       _service.search(text, types);
+
+  Future<User> getUser() => _service.getUser();
 }

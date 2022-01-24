@@ -12,9 +12,7 @@ class SearchItem extends StatelessWidget {
       tileColor: Colors.black,
       title: Text(item.name),
       subtitle: Text(item.type.key),
-
-      //TODO find the corret icon
-      trailing: Icon(Icons.vertical_align_bottom),
+      trailing: const Icon(Icons.more_vert),
       leading: Image.network(
         item.image!,
         height: 40,

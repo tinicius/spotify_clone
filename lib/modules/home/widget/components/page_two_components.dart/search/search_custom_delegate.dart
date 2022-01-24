@@ -107,34 +107,5 @@ class SearchCustomDelegate extends SearchDelegate {
         }
       },
     );
-
-    return controller.searchResult.isEmpty
-        ? Container(
-            height: double.infinity,
-            width: double.infinity,
-            color: Colors.black,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Encontre o que você quer ouvir",
-                  style: ThemeConfig()
-                      .getTextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                Text(
-                  "Busque artistas, músicas, poscasts e muito mais.",
-                  style: ThemeConfig().getTextStyle(fontSize: 12),
-                ),
-              ],
-            ),
-          )
-        : Obx(
-            () => ListView.builder(
-              itemCount: controller.searchResult.length,
-              itemBuilder: (context, index) {
-                return SearchItem(item: controller.searchResult[index]);
-              },
-            ),
-          );
   }
 }
