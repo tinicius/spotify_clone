@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotify/spotify.dart';
+import 'package:spotify_clone/application/themes/theme_config.dart';
 import 'package:spotify_clone/models/grid_item_model.dart';
 import 'package:spotify_clone/models/search_result.dart';
 import 'package:spotify_clone/models/section_item_model.dart';
@@ -158,6 +159,105 @@ class HomeController extends GetxController {
     loadData();
     getCategories();
   }
+
+  void getSnackBar() {
+    Get.bottomSheet(
+      Container(
+        color: ThemeConfig.black,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 15),
+          child: Column(
+            children: [
+              Container(
+                width: 35,
+                height: 5,
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(100),
+                ),
+              ),
+              const SizedBox(height: 35),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: Text("Classificar por",
+                        style: ThemeConfig().getTextStyle(fontSize: 20)),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 35),
+              ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: filterOptions.length,
+                itemBuilder: (context, index) {
+                  if (_selectedFilter == index) {
+                    return ListTile(
+                      onTap: () {
+                        _selectedFilter.value = index;
+                        Get.back();
+                      },
+                      title: Text(
+                        filterOptions[index],
+                        style: TextStyle(color: ThemeConfig.green),
+                      ),
+                      trailing:
+                          Icon(Icons.check_outlined, color: ThemeConfig.green),
+                    );
+                  } else {
+                    return ListTile(
+                      onTap: () {
+                        _selectedFilter.value = index;
+                        Get.back();
+                      },
+                      title: Text(
+                        filterOptions[index],
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    );
+                  }
+                },
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Text(
+                      "CANCELAR",
+                      style: ThemeConfig().getTextStyle(
+                          fontColor: Colors.grey.shade800, fontSize: 15),
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  RxInt _selectedFilter = 0.obs;
+
+  final List<String> filterOptions = [
+    "Tocadas recentemente",
+    "Adicionados recentemente",
+    "Ordem alfabética",
+    "Criador"
+  ];
+
+  String get filterTitle => filterOptions[_selectedFilter.value];
+
+  final List<String> menuOptions = [
+    "Playslists",
+    "Artistas",
+    "Álbuns",
+    "Podcasts e programas"
+  ];
 
   //Overrides
   @override
