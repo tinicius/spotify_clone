@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
       title: ThemeConfig.title,
       theme: ThemeConfig.theme,
       initialBinding: ApplicationBindings(),
+      initialRoute: "/home",
       getPages: [
         ...SplashModule().routes,
         ...HomeModule().routes,
