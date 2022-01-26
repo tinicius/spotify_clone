@@ -37,9 +37,7 @@ class LoginPage extends GetView<LoginController> {
                         )
                       ],
                     )),
-                const SizedBox(
-                  height: 25,
-                ),
+                const SizedBox(height: 25),
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
@@ -51,21 +49,31 @@ class LoginPage extends GetView<LoginController> {
                         "Seja Bem-Vindo ao Spotify-Clone\nRealize login para acessar seus dados"),
                   ),
                 ),
-                const SizedBox(
-                  height: 50,
-                ),
+                const SizedBox(height: 50),
                 ElevatedButton(
-                    onPressed: () async {
-                      await controller.sign();
-                    },
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.green)),
-                    child: const Padding(
-                      padding: EdgeInsets.only(
-                          top: 8, bottom: 8, left: 16, right: 16),
-                      child: Text("Login"),
-                    ))
+                  onPressed: () async {
+                    await controller.sign();
+                  },
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.green)),
+                  child: const Padding(
+                    padding:
+                        EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                    child: Text("Login"),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                InkWell(
+                  onTap: () async {
+                    controller.guestMode();
+                  },
+                  child: Text(
+                    "Entrar sem login",
+                    style: ThemeConfig().getTextStyle(
+                        fontColor: Colors.grey.shade800, fontSize: 15),
+                  ),
+                ),
               ],
             ),
           ),

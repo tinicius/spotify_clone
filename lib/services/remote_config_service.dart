@@ -4,11 +4,16 @@ class RemoteConfigService {
   RemoteConfig remoteConfig = RemoteConfig.instance;
 
   Future<Map<String, dynamic>> getClientInfo() async {
-    await remoteConfig.fetchAndActivate();
+    try {
+      await remoteConfig.fetchAndActivate();
 
-    return {
+      return {
         "client_id": remoteConfig.getString("client_id"),
         "client_secret": remoteConfig.getString("client_secret")
       };
+    } catch (e) {
+      print(e);
+      return {};
+    }
   }
 }

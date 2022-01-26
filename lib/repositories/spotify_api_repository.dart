@@ -6,7 +6,18 @@ import 'package:spotify_clone/services/spotify_api_service.dart';
 class SpotifyApiRepository {
   final SpotifyApiService _service = Get.find<SpotifyApiService>();
 
-  Future<void> sign() => _service.auth();
+  User? _user;
+
+  Future<void> sign() async {
+    try {
+      await _service.auth();
+      print("sign");
+      _user = await _service.getUser();
+    } catch (e) {
+      print("sign error");
+      _user = null;
+    }
+  }
 
   Future<List<TrackSimple>> getRecentlyPlayed() => _service.getRecentlyPlayed();
 
@@ -29,5 +40,12 @@ class SpotifyApiRepository {
   Future<List<SearchResult>> search(String text, List<SearchType> types) =>
       _service.search(text, types);
 
-  Future<User> getUser() => _service.getUser();
+  Future<User> getUser() async {
+    if (_user != null) {
+      return _user!;
+    } else {
+      _user = await _service.getUser();
+      return _user!;
+    }
+  }
 }

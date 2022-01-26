@@ -7,6 +7,6 @@ class HomeModule implements Module {
   @override
   List<GetPage> routes = [
     GetPage(
-        name: '/home', page: () => const HomePage(), binding: HomeBindings())
+        name: '/home', page: () => HomePage(), binding: HomeBindings())
   ];
 }

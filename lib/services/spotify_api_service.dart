@@ -2,7 +2,7 @@ import 'package:flutter_web_auth/flutter_web_auth.dart' show FlutterWebAuth;
 import 'package:spotify/spotify.dart';
 import 'package:spotify_clone/models/search_result.dart';
 import 'package:spotify_clone/repositories/remote_config_repository.dart';
-
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -11,8 +11,14 @@ class SpotifyApiService {
   RemoteConfigRepository remoteConfigRepository = RemoteConfigRepository();
 
   Future<void> auth() async {
-    final Map<String, dynamic> credentialsJson =
-        await remoteConfigRepository.getClientInfo();
+    Map<String, dynamic> credentialsJson = {};
+
+    if (kIsWeb) {
+      //TODO fix this
+      //Remote config does not working on Web
+    } else {
+      credentialsJson = await remoteConfigRepository.getClientInfo();
+    }
 
     final SpotifyApiCredentials credentials = SpotifyApiCredentials(
         credentialsJson["client_id"], credentialsJson["client_secret"]);
@@ -110,13 +116,17 @@ class SpotifyApiService {
   Future<List<PlaylistSimple>> getRecommendationsPlaylists() async {
     List<PlaylistSimple> playlists = [];
 
-    Iterable<PlaylistSimple>? iterablePlaylists =
-        await spotify?.playlists.featured.all();
+    try {
+      Iterable<PlaylistSimple>? iterablePlaylists =
+          await spotify?.playlists.featured.all();
 
-    iterablePlaylists?.forEach((element) {
-      playlists.add(element);
-    });
-
+      iterablePlaylists?.forEach((element) {
+        playlists.add(element);
+      });
+    } catch (e) {
+      print(e);
+    }
+    print(playlists);
     return playlists;
   }
 

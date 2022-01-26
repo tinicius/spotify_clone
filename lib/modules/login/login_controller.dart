@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:spotify_clone/modules/home/home_page.dart';
 import 'package:spotify_clone/repositories/spotify_api_repository.dart';
 
 class LoginController extends GetxController {
@@ -12,14 +13,8 @@ class LoginController extends GetxController {
       throw Exception("Erro ao realizar autenticação");
     }
   }
+
+  void guestMode() {
+    Get.offNamed("/home", arguments: {"isGuest": true});
+  }
 }
-
-
-
-
-
-
-
-
-
-

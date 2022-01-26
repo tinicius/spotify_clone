@@ -41,6 +41,47 @@ class HomeController extends GetxController {
   RxList<ItemModel> playlistItems2 = <ItemModel>[].obs;
   RxList<ItemModel> playlistItems3 = <ItemModel>[].obs;
 
+  Future<void> loadDataGuest() async {
+    print("a");
+    //Get a list of suggested playlists
+    List<PlaylistSimple> playlists =
+        await spotifyApiRepository.getRecommendationsPlaylists();
+
+    for (var element in playlists) {
+      list1.add(
+          ItemModel(title: element.name!, image: element.images!.first.url!));
+    }
+
+    for (var i = 0; i < 3; i++) {
+      List<Track> tracks =
+          await spotifyApiRepository.getTracksOfPlaylist(playlists[i]);
+
+      if (i == 0) {
+        for (int i = 0; i < 10; i++) {
+          var element = tracks[i];
+          var image = await spotifyApiRepository.getImageOfTrackId(element.id!);
+
+          playlistItems1.add(ItemModel(title: element.name!, image: image));
+        }
+      } else if (i == 1) {
+        for (int i = 0; i < 10; i++) {
+          var element = tracks[i];
+          var image = await spotifyApiRepository.getImageOfTrackId(element.id!);
+
+          playlistItems2.add(ItemModel(title: element.name!, image: image));
+        }
+      } else {
+        for (int i = 0; i < 10; i++) {
+          var element = tracks[i];
+          var image = await spotifyApiRepository.getImageOfTrackId(element.id!);
+
+          playlistItems3.add(ItemModel(title: element.name!, image: image));
+        }
+      }
+    }
+    print(playlists);
+  }
+
   Future<void> loadData() async {
     resetData();
 
@@ -151,13 +192,18 @@ class HomeController extends GetxController {
   }
 
   //Page three attributes
-  Future<void> loadUser() async {
+  Future<void> getUser() async {
     user = await spotifyApiRepository.getUser();
   }
 
-  Future<void> initHome() async {
-    await loadUser();
-    loadData();
+  Future<void> initHome(Map<String, dynamic> arguments) async {
+    await getUser();
+    if (!arguments["isGuest"]) {
+      loadData();
+    } else {
+      loadDataGuest();
+    }
+
     getCategories();
   }
 
@@ -245,6 +291,7 @@ class HomeController extends GetxController {
   RxInt selectedFilter = 0.obs;
 
   RxBool isList = false.obs;
+
   List<ItemModel> libraryItens = List.generate(
     51,
     (index) => ItemModel(title: "Item $index", image: imageUrl),

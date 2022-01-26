@@ -10,7 +10,7 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-        future: controller.initHome(),
+        future: controller.initHome(Get.arguments ?? {}),
         builder: (context, snapshot) {
           if (ConnectionState.waiting == snapshot.connectionState) {
             return const Center(
@@ -19,7 +19,7 @@ class HomePage extends GetView<HomeController> {
           } else if (ConnectionState.done == snapshot.connectionState) {
             return Obx(() => controller.page);
           } else {
-            //TODO make erro page
+            //TODO make error page
             return const Text("Error");
           }
         },
