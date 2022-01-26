@@ -10,7 +10,7 @@ class HorizontalList extends StatelessWidget {
       : super(key: key);
 
   final String title;
-  final List<GridItemModel> listGridItems;
+  final List<ItemModel> listGridItems;
 
   @override
   Widget build(BuildContext context) {

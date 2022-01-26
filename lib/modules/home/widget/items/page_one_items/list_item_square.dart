@@ -5,7 +5,7 @@ import 'package:spotify_clone/models/grid_item_model.dart';
 class ListItemSquare extends StatelessWidget {
   const ListItemSquare({Key? key, required this.item}) : super(key: key);
 
-  final GridItemModel item;
+  final ItemModel item;
 
   @override
   Widget build(BuildContext context) {

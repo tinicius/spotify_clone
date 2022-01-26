@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotify/spotify.dart';
 import 'package:spotify_clone/application/themes/theme_config.dart';
+import 'package:spotify_clone/main.dart';
 import 'package:spotify_clone/models/grid_item_model.dart';
 import 'package:spotify_clone/models/search_result.dart';
 import 'package:spotify_clone/models/section_item_model.dart';
@@ -33,12 +34,12 @@ class HomeController extends GetxController {
 
   String title = "";
 
-  RxList<GridItemModel> gridHome = <GridItemModel>[].obs;
-  RxList<GridItemModel> list1 = <GridItemModel>[].obs;
-  RxList<GridItemModel> list2 = <GridItemModel>[].obs;
-  RxList<GridItemModel> playlistItems1 = <GridItemModel>[].obs;
-  RxList<GridItemModel> playlistItems2 = <GridItemModel>[].obs;
-  RxList<GridItemModel> playlistItems3 = <GridItemModel>[].obs;
+  RxList<ItemModel> gridHome = <ItemModel>[].obs;
+  RxList<ItemModel> list1 = <ItemModel>[].obs;
+  RxList<ItemModel> list2 = <ItemModel>[].obs;
+  RxList<ItemModel> playlistItems1 = <ItemModel>[].obs;
+  RxList<ItemModel> playlistItems2 = <ItemModel>[].obs;
+  RxList<ItemModel> playlistItems3 = <ItemModel>[].obs;
 
   Future<void> loadData() async {
     resetData();
@@ -54,12 +55,12 @@ class HomeController extends GetxController {
       String image =
           await spotifyApiRepository.getImageOfTrackId(musics[element].id!);
 
-      gridHome.add(GridItemModel(title: musics[element].name!, image: image));
+      gridHome.add(ItemModel(title: musics[element].name!, image: image));
     }
 
     for (var element in playlists) {
-      list1.add(GridItemModel(
-          title: element.name!, image: element.images!.first.url!));
+      list1.add(
+          ItemModel(title: element.name!, image: element.images!.first.url!));
     }
 
     for (var element in musics) {
@@ -67,7 +68,7 @@ class HomeController extends GetxController {
         AlbumSimple albumSimple =
             await spotifyApiRepository.getAlbumOfTrackSimple(element);
 
-        list2.add(GridItemModel(
+        list2.add(ItemModel(
             title: albumSimple.name!, image: albumSimple.images!.first.url!));
       }
     }
@@ -81,35 +82,35 @@ class HomeController extends GetxController {
           var element = tracks[i];
           var image = await spotifyApiRepository.getImageOfTrackId(element.id!);
 
-          playlistItems1.add(GridItemModel(title: element.name!, image: image));
+          playlistItems1.add(ItemModel(title: element.name!, image: image));
         }
       } else if (i == 1) {
         for (int i = 0; i < 10; i++) {
           var element = tracks[i];
           var image = await spotifyApiRepository.getImageOfTrackId(element.id!);
 
-          playlistItems2.add(GridItemModel(title: element.name!, image: image));
+          playlistItems2.add(ItemModel(title: element.name!, image: image));
         }
       } else {
         for (int i = 0; i < 10; i++) {
           var element = tracks[i];
           var image = await spotifyApiRepository.getImageOfTrackId(element.id!);
 
-          playlistItems3.add(GridItemModel(title: element.name!, image: image));
+          playlistItems3.add(ItemModel(title: element.name!, image: image));
         }
       }
     }
   }
 
   void resetData() {
-    gridHome = <GridItemModel>[].obs;
+    gridHome = <ItemModel>[].obs;
 
-    list1 = <GridItemModel>[].obs;
-    list2 = <GridItemModel>[].obs;
+    list1 = <ItemModel>[].obs;
+    list2 = <ItemModel>[].obs;
 
-    playlistItems1 = <GridItemModel>[].obs;
-    playlistItems2 = <GridItemModel>[].obs;
-    playlistItems3 = <GridItemModel>[].obs;
+    playlistItems1 = <ItemModel>[].obs;
+    playlistItems2 = <ItemModel>[].obs;
+    playlistItems3 = <ItemModel>[].obs;
   }
 
   void setPageOneTitle() {
@@ -192,10 +193,10 @@ class HomeController extends GetxController {
                 shrinkWrap: true,
                 itemCount: filterOptions.length,
                 itemBuilder: (context, index) {
-                  if (_selectedFilter == index) {
+                  if (selectedFilter.value == index) {
                     return ListTile(
                       onTap: () {
-                        _selectedFilter.value = index;
+                        selectedFilter.value = index;
                         Get.back();
                       },
                       title: Text(
@@ -208,7 +209,7 @@ class HomeController extends GetxController {
                   } else {
                     return ListTile(
                       onTap: () {
-                        _selectedFilter.value = index;
+                        selectedFilter.value = index;
                         Get.back();
                       },
                       title: Text(
@@ -241,7 +242,13 @@ class HomeController extends GetxController {
     );
   }
 
-  RxInt _selectedFilter = 0.obs;
+  RxInt selectedFilter = 0.obs;
+
+  RxBool isList = false.obs;
+  List<ItemModel> libraryItens = List.generate(
+    51,
+    (index) => ItemModel(title: "Item $index", image: imageUrl),
+  );
 
   final List<String> filterOptions = [
     "Tocadas recentemente",
@@ -250,7 +257,7 @@ class HomeController extends GetxController {
     "Criador"
   ];
 
-  String get filterTitle => filterOptions[_selectedFilter.value];
+  String get filterTitle => filterOptions[selectedFilter.value];
 
   final List<String> menuOptions = [
     "Playslists",

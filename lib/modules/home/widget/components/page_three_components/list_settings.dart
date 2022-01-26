@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotify_clone/application/themes/theme_config.dart';
+import 'package:spotify_clone/modules/home/home_controller.dart';
 
 class ListSettings extends StatefulWidget {
   const ListSettings({Key? key, required this.filter, required this.onPressed})
@@ -14,7 +15,7 @@ class ListSettings extends StatefulWidget {
 }
 
 class _ListSettingsState extends State<ListSettings> {
-  RxBool isList = true.obs;
+  HomeController controller = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -37,17 +38,17 @@ class _ListSettingsState extends State<ListSettings> {
           ),
           Obx(
             () {
-              return isList.value
+              return controller.isList.value
                   ? InkWell(
                       onTap: () {
-                        isList.value = !isList.value;
+                        controller.isList.value = !controller.isList.value;
                       },
                       child: const Icon(Icons.list_outlined,
                           color: Colors.white, size: 25),
                     )
                   : InkWell(
                       onTap: () {
-                        isList.value = !isList.value;
+                        controller.isList.value = !controller.isList.value;
                       },
                       child: const Icon(Icons.grid_view_outlined,
                           color: Colors.white, size: 25),

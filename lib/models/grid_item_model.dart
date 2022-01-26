@@ -1,7 +1,7 @@
-class GridItemModel {
+class ItemModel {
   String title;
   String? subtitle;
   String image;
 
-  GridItemModel({required this.title, required this.image, this.subtitle});
+  ItemModel({required this.title, required this.image, this.subtitle});
 }

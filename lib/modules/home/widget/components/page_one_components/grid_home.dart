@@ -5,7 +5,7 @@ import 'package:spotify_clone/modules/home/widget/items/page_one_items/grid_home
 class GridHome extends StatelessWidget {
   const GridHome({Key? key, required this.listGridItems}) : super(key: key);
 
-  final List<GridItemModel> listGridItems;
+  final List<ItemModel> listGridItems;
 
   @override
   Widget build(BuildContext context) {
