@@ -11,73 +11,72 @@ class LoginController extends GetxController {
 
   TextEditingController textController = TextEditingController();
 
-  Future<void> sign() async {
-    try {
-      if (kIsWeb) {
-        String authLink = await _spotifyApiRepository.getAuthLink();
+  void linkOnTap(String authLink) {
+    launch(authLink);
+  }
 
-        Get.dialog(
-          Material(
-            child: Container(
-              height: 100,
-              width: 100,
-              child: Column(
-                children: [
-                  const Text("Para logar realize os seguintes passos:"),
-                  const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("1. Clique "),
-                      InkWell(
-                        onTap: () {
-                          launch(authLink);
-                        },
-                        child: Text(
-                          "aqui",
-                          style: ThemeConfig()
-                              .getTextStyle(fontColor: Colors.blue),
-                        ),
-                      ),
-                      const Text(" e faça seu login"),
-                    ],
-                  ),
-                  const SizedBox(height: 5),
-                  const Text("2. Cole o código disponível na url (code=)"),
-                  const SizedBox(height: 5),
-                  const Text("3. Coloque o código no espaço abaixo"),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: TextField(
-                      controller: textController,
-                      decoration:
-                          const InputDecoration(border: OutlineInputBorder()),
-                    ),
-                  ),
-                  ElevatedButton(
-                      onPressed: () async {
-                        await _spotifyApiRepository.auth(
-                            code: textController.text);
-                        Get.offNamed("/home");
-                      },
-                      child: const Text("Entrar"))
-                ],
-              ),
-            ),
-          ),
-        );
-
-        //_spotifyApiRepository.auth(code: textController.text);
-      } else {
-        await _spotifyApiRepository.auth();
-        Get.offNamed("/home");
-      }
-    } catch (error) {
-      print(error);
+  Future<void> buttonOnTap() async {
+    await _spotifyApiRepository.auth(code: textController.text);
+    if (_spotifyApiRepository.user != null) {
+      Get.offAllNamed("/home");
+    } else {
+      Get.showSnackbar(
+          const GetSnackBar(title: "Erro ao realizar login, tente novamente"));
+      Get.offAllNamed("/home");
     }
   }
 
-  void guestMode() {
-    Get.offNamed("/home");
+  //Build a Dialog to receive a code
+  Widget dialog(String authLink) {
+    return Material(
+      child: Column(
+        children: [
+          const Text("Para logar realize os seguintes passos:"),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text("1. Clique "),
+              InkWell(
+                onTap: () {
+                  linkOnTap(authLink);
+                },
+                child: Text(
+                  "aqui",
+                  style: ThemeConfig().getTextStyle(fontColor: Colors.blue),
+                ),
+              ),
+              const Text(" e faça seu login"),
+            ],
+          ),
+          const SizedBox(height: 5),
+          const Text("2. Cole o código disponível na url (code=)"),
+          const SizedBox(height: 5),
+          const Text("3. Coloque o código no espaço abaixo"),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: TextField(
+              controller: textController,
+              decoration: const InputDecoration(border: OutlineInputBorder()),
+            ),
+          ),
+          ElevatedButton(
+              onPressed: () async {
+                await buttonOnTap();
+              },
+              child: const Text("Entrar"))
+        ],
+      ),
+    );
+  }
+
+  Future<void> sign() async {
+    if (kIsWeb) {
+      String authLink = await _spotifyApiRepository.getAuthLink();
+      Get.dialog(dialog(authLink));
+    } else {
+      await _spotifyApiRepository.auth();
+      Get.offAllNamed("/home");
+    }
   }
 }

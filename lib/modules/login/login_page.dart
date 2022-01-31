@@ -64,16 +64,6 @@ class LoginPage extends GetView<LoginController> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                InkWell(
-                  onTap: () async {
-                    controller.guestMode();
-                  },
-                  child: Text(
-                    "Entrar sem login",
-                    style: ThemeConfig().getTextStyle(
-                        fontColor: Colors.grey.shade800, fontSize: 15),
-                  ),
-                ),
               ],
             ),
           ),

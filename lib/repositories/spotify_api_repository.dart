@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 class SpotifyApiRepository {
   final SpotifyApiService _service = Get.find<SpotifyApiService>();
 
-  User? _user;
+  User? user;
 
   Future<void> auth({String? code}) async {
     try {
@@ -16,9 +16,9 @@ class SpotifyApiRepository {
       } else {
         await _service.auth();
       }
-      _user = await _service.getUser();
+      user = await _service.getUser();
     } catch (e) {
-      _user = null;
+      user = null;
       throw Exception("Erro ao realizar login");
     }
   }
@@ -47,12 +47,12 @@ class SpotifyApiRepository {
       _service.search(text, types);
 
   Future<User?> getUser() async {
-    if (_user != null) {
-      return _user!;
+    if (user != null) {
+      return user!;
     } else {
-      _user = await _service.getUser();
+      user = await _service.getUser();
 
-      return _user;
+      return user;
     }
   }
 }

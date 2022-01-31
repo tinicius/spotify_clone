@@ -16,11 +16,6 @@ class PageThree extends StatefulWidget {
   _PageThreeState createState() => _PageThreeState();
 }
 
-List<ItemModel> libraryItens = List.generate(
-  63,
-  (index) => ItemModel(title: "Item $index", image: ThemeConfig().imageUrl),
-);
-
 class _PageThreeState extends State<PageThree> {
   HomeController controller = Get.find<HomeController>();
 
@@ -28,17 +23,15 @@ class _PageThreeState extends State<PageThree> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
+        actions:  const [
           InkWell(
-            onTap: () {},
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.all(8.0),
               child: Icon(Icons.search_outlined),
             ),
           ),
           InkWell(
-            onTap: () {},
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.all(8.0),
               child: Icon(Icons.add_outlined),
             ),
@@ -55,11 +48,12 @@ class _PageThreeState extends State<PageThree> {
               children: [
                 HorizontalMenu(options: controller.menuOptions),
                 ListSettings(
-                    filter: controller.filterTitle,
-                    onPressed: controller.getSnackBar),
+                  filter: controller.filterTitle,
+                  onPressed: controller.getSnackBar,
+                ),
                 controller.isList.value
-                    ? LibraryGrid(itens: libraryItens)
-                    : LibraryList(itens: libraryItens)
+                    ? LibraryGrid(itens: controller.libraryItens)
+                    : LibraryList(itens: controller.libraryItens)
               ],
             )),
       ),

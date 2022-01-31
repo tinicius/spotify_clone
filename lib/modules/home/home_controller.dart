@@ -40,17 +40,6 @@ class HomeController extends GetxController {
   RxList<ItemModel> playlistItems2 = <ItemModel>[].obs;
   RxList<ItemModel> playlistItems3 = <ItemModel>[].obs;
 
-  Future<void> loadDataGuest() async {
-    //Load a fixed data to user not sign
-
-    for (var i = 0; i < 10; i++) {
-      list1.add(ItemModel(title: "Title", image: ThemeConfig().imageUrl));
-      playlistItems1.add(ItemModel(title: "Title", image: ThemeConfig().imageUrl));
-      playlistItems2.add(ItemModel(title: "Title", image: ThemeConfig().imageUrl));
-      playlistItems3.add(ItemModel(title: "Title", image: ThemeConfig().imageUrl));
-    }
-  }
-
   Future<void> loadData() async {
     resetData();
 
@@ -110,6 +99,8 @@ class HomeController extends GetxController {
         }
       }
     }
+
+    libraryItens = list1;
   }
 
   void resetData() {
@@ -170,11 +161,33 @@ class HomeController extends GetxController {
 
     if (user != null) {
       loadData();
-    } else {
-      loadDataGuest();
     }
 
     getCategories();
+  }
+
+  void chanceFilter(int index) async {
+    selectedFilter.value = index;
+
+    switch (index) {
+      case 0:
+        libraryItens = playlistItems1;
+        break;
+
+      case 1:
+        libraryItens = playlistItems2;
+        break;
+
+      case 2:
+        libraryItens = playlistItems3;
+        break;
+
+      default:
+        libraryItens = playlistItems1;
+        break;
+    }
+
+    Get.back();
   }
 
   void getSnackBar() {
@@ -212,8 +225,7 @@ class HomeController extends GetxController {
                   if (selectedFilter.value == index) {
                     return ListTile(
                       onTap: () {
-                        selectedFilter.value = index;
-                        Get.back();
+                        chanceFilter(index);
                       },
                       title: Text(
                         filterOptions[index],
@@ -225,8 +237,7 @@ class HomeController extends GetxController {
                   } else {
                     return ListTile(
                       onTap: () {
-                        selectedFilter.value = index;
-                        Get.back();
+                        chanceFilter(index);
                       },
                       title: Text(
                         filterOptions[index],
@@ -262,10 +273,7 @@ class HomeController extends GetxController {
 
   RxBool isList = false.obs;
 
-  List<ItemModel> libraryItens = List.generate(
-    51,
-    (index) => ItemModel(title: "Item $index", image: ThemeConfig().imageUrl),
-  );
+  RxList<ItemModel> libraryItens = <ItemModel>[].obs;
 
   final List<String> filterOptions = [
     "Tocadas recentemente",
