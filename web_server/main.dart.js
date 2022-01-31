@@ -71925,7 +71925,7 @@ A.a68.prototype={}
 A.t3.prototype={
 wT(){var s=0,r=A.L(t.N),q
 var $async$wT=A.G(function(a,b){if(a===1)return A.I(b,r)
-while(true)switch(s){case 0:q="https://accounts.spotify.com/authorize?response_type=code&client_id="+A.d(A.aD(["client_id","e4835b7155c5422b8639a0ea1a2ff766","client_secret","13b49ec7c25c4717bc75ad42fcdf9f55"],t.N,t.z).h(0,"client_id"))+"&scope=user-read-email user-library-read user-library-modify user-library-read app-remote-control user-top-read user-read-recently-played &redirect_uri=https://www.spotify.com/br/"
+while(true)switch(s){case 0:q="https://accounts.spotify.com/authorize?response_type=code&client_id="+A.d(A.aD(["client_id","e4835b7155c5422b8639a0ea1a2ff766","client_secret","13b49ec7c25c4717bc75ad42fcdf9f55"],t.N,t.z).h(0,"client_id"))+"&scope=user-read-email user-library-read user-library-modify user-library-read app-remote-control user-top-read user-read-recently-played &redirect_uri=https://tinicius.github.io/spotify_clone/redirect_page.html"
 s=1
 break
 case 1:return A.J(q,r)}})
@@ -71938,7 +71938,7 @@ h=t.z
 g=A.aD(["client_id","e4835b7155c5422b8639a0ea1a2ff766","client_secret","13b49ec7c25c4717bc75ad42fcdf9f55"],i,h)
 q=3
 s=6
-return A.D(A.aKY(A.hA("https://accounts.spotify.com/api/token",0,null),A.aD(["grant_type","authorization_code","code",a,"redirect_uri","https://www.spotify.com/br/","client_secret",J.a7(g,"client_secret"),"client_id",J.a7(g,"client_id")],i,h)),$async$uK)
+return A.D(A.aKY(A.hA("https://accounts.spotify.com/api/token",0,null),A.aD(["grant_type","authorization_code","code",a,"redirect_uri","https://tinicius.github.io/spotify_clone/redirect_page.html","client_secret",J.a7(g,"client_secret"),"client_id",J.a7(g,"client_id")],i,h)),$async$uK)
 case 6:m=c
 i=m
 l=B.R.c8(0,A.U0(J.a7(A.TO(i.e).c.a,"charset")).c8(0,i.x))
