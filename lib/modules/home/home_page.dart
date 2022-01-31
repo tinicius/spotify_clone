@@ -19,8 +19,11 @@ class HomePage extends GetView<HomeController> {
           } else if (ConnectionState.done == snapshot.connectionState) {
             return Obx(() => controller.page);
           } else {
-            //TODO make error page
-            return const Text("Error");
+            return Center(
+                child: Text(
+              "Error",
+              style: ThemeConfig().getTextStyle(),
+            ));
           }
         },
       ),

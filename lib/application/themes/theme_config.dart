@@ -4,6 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 class ThemeConfig {
   static String get title => "Spotify";
 
+  
+  String get imageUrl => "https://miro.medium.com/max/1400/1*49OCRwcGrLHuGtFa2sF01w.jpeg";
+
   getTextStyle(
       {double fontSize = 12,
       Color fontColor = Colors.white,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotify/spotify.dart';
 import 'package:spotify_clone/application/themes/theme_config.dart';
-import 'package:spotify_clone/main.dart';
 import 'package:spotify_clone/models/grid_item_model.dart';
 import 'package:spotify_clone/models/search_result.dart';
 import 'package:spotify_clone/models/section_item_model.dart';
@@ -42,44 +41,14 @@ class HomeController extends GetxController {
   RxList<ItemModel> playlistItems3 = <ItemModel>[].obs;
 
   Future<void> loadDataGuest() async {
-    print("a");
-    //Get a list of suggested playlists
-    List<PlaylistSimple> playlists =
-        await spotifyApiRepository.getRecommendationsPlaylists();
+    //Load a fixed data to user not sign
 
-    for (var element in playlists) {
-      list1.add(
-          ItemModel(title: element.name!, image: element.images!.first.url!));
+    for (var i = 0; i < 10; i++) {
+      list1.add(ItemModel(title: "Title", image: ThemeConfig().imageUrl));
+      playlistItems1.add(ItemModel(title: "Title", image: ThemeConfig().imageUrl));
+      playlistItems2.add(ItemModel(title: "Title", image: ThemeConfig().imageUrl));
+      playlistItems3.add(ItemModel(title: "Title", image: ThemeConfig().imageUrl));
     }
-
-    for (var i = 0; i < 3; i++) {
-      List<Track> tracks =
-          await spotifyApiRepository.getTracksOfPlaylist(playlists[i]);
-
-      if (i == 0) {
-        for (int i = 0; i < 10; i++) {
-          var element = tracks[i];
-          var image = await spotifyApiRepository.getImageOfTrackId(element.id!);
-
-          playlistItems1.add(ItemModel(title: element.name!, image: image));
-        }
-      } else if (i == 1) {
-        for (int i = 0; i < 10; i++) {
-          var element = tracks[i];
-          var image = await spotifyApiRepository.getImageOfTrackId(element.id!);
-
-          playlistItems2.add(ItemModel(title: element.name!, image: image));
-        }
-      } else {
-        for (int i = 0; i < 10; i++) {
-          var element = tracks[i];
-          var image = await spotifyApiRepository.getImageOfTrackId(element.id!);
-
-          playlistItems3.add(ItemModel(title: element.name!, image: image));
-        }
-      }
-    }
-    print(playlists);
   }
 
   Future<void> loadData() async {
@@ -198,7 +167,8 @@ class HomeController extends GetxController {
 
   Future<void> initHome(Map<String, dynamic> arguments) async {
     await getUser();
-    if (!arguments["isGuest"]) {
+
+    if (user != null) {
       loadData();
     } else {
       loadDataGuest();
@@ -294,7 +264,7 @@ class HomeController extends GetxController {
 
   List<ItemModel> libraryItens = List.generate(
     51,
-    (index) => ItemModel(title: "Item $index", image: imageUrl),
+    (index) => ItemModel(title: "Item $index", image: ThemeConfig().imageUrl),
   );
 
   final List<String> filterOptions = [
@@ -319,7 +289,6 @@ class HomeController extends GetxController {
     setPageOneTitle();
 
     _widgetOptions = [
-      //TODO fix date
       PageOne(title: title),
       const PageTwo(),
       const PageThree(),

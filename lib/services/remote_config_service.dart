@@ -12,7 +12,6 @@ class RemoteConfigService {
         "client_secret": remoteConfig.getString("client_secret")
       };
     } catch (e) {
-      print(e);
       return {};
     }
   }

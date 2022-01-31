@@ -9,9 +9,6 @@ import 'package:spotify_clone/modules/splash/splash_module.dart';
 import 'package:spotify_clone/repositories/firebase_repository.dart';
 import 'package:flutter/foundation.dart';
 
-//TODO remove this
-var imageUrl =
-    "https://laparola.com.br/wp-content/uploads/2013/03/BE-timmaia-681x554.jpeg";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
