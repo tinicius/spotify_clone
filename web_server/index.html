@@ -35,8 +35,21 @@
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
+
+       <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+     
+     <script>
+           var firebaseConfig = {
+             apiKey: "AIzaSyB32gV28dE6CKIsEJ-u_vpI_nNXInZNPYA",
+             projectId: "spotify-clone-4bb77",
+             messagingSenderId: "601459848463",
+             appId: "1:601459848463:android:89f5cb323bd02d4501fa7a"
+           };
+           firebase.initializeApp(firebaseConfig);
+       </script>
+  
   <script>
-    var serviceWorkerVersion = '689237999';
+    var serviceWorkerVersion = '793624724';
     var scriptLoaded = false;
     function loadMainDartJs() {
       if (scriptLoaded) {
