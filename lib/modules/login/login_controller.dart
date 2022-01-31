@@ -16,13 +16,17 @@ class LoginController extends GetxController {
   }
 
   Future<void> buttonOnTap() async {
-    await _spotifyApiRepository.auth(code: textController.text);
-    if (_spotifyApiRepository.user != null) {
+    try {
+      await _spotifyApiRepository.auth(code: textController.text);
       Get.offAllNamed("/home");
-    } else {
+    } catch (e) {
       Get.showSnackbar(
-          const GetSnackBar(title: "Erro ao realizar login, tente novamente"));
-      Get.offAllNamed("/home");
+        const GetSnackBar(
+          message: "Erro ao realizar login, tente novamente",
+          duration: Duration(seconds: 3),
+        ),
+      );
+      Get.offAllNamed("/login");
     }
   }
 

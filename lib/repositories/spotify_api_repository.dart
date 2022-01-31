@@ -10,17 +10,13 @@ class SpotifyApiRepository {
   User? user;
 
   Future<void> auth({String? code}) async {
-    try {
-      if (kIsWeb) {
-        await _service.authWeb(code!);
-      } else {
-        await _service.auth();
-      }
-      user = await _service.getUser();
-    } catch (e) {
-      user = null;
-      throw Exception("Erro ao realizar login");
+    print(_service.spotify);
+    if (kIsWeb) {
+      await _service.authWeb(code!);
+    } else {
+      await _service.auth();
     }
+    user = await _service.getUser();
   }
 
   Future<String> getAuthLink() => _service.getAuthLink();

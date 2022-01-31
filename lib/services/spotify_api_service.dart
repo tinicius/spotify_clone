@@ -10,7 +10,8 @@ class SpotifyApiService {
   SpotifyApi? spotify;
   RemoteConfigRepository remoteConfigRepository = RemoteConfigRepository();
 
-  static const redirectUri = 'https://tinicius.github.io/spotify_clone/redirect_page.html';
+  static const redirectUri =
+      'https://tinicius.github.io/spotify_clone/redirect_page.html';
 
   Future<String> getAuthLink() async {
     // Map<String, dynamic> credentialsJson =
@@ -53,12 +54,10 @@ class SpotifyApiService {
           "client_id": credentialsJson["client_id"],
         },
       );
-
       dynamic body = json.decode(response.body);
-
       spotify = SpotifyApi.withAccessToken(body["access_token"]);
     } catch (e) {
-      print("Error = $e");
+      return;
     }
   }
 
@@ -225,14 +224,11 @@ class SpotifyApiService {
     return searchResult;
   }
 
-  Future<User?> getUser() async {
+  Future<User> getUser() async {
     User? user;
 
-    try {
-      user = await spotify!.me.get();
-    } catch (e) {
-      return null;
-    }
+    user = await spotify!.me.get();
+
     return user;
   }
 }

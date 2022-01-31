@@ -23,7 +23,7 @@ class _PageThreeState extends State<PageThree> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions:  const [
+        actions: const [
           InkWell(
             child: Padding(
               padding: EdgeInsets.all(8.0),
@@ -52,8 +52,22 @@ class _PageThreeState extends State<PageThree> {
                   onPressed: controller.getSnackBar,
                 ),
                 controller.isList.value
-                    ? LibraryGrid(itens: controller.libraryItens)
-                    : LibraryList(itens: controller.libraryItens)
+                    ? controller.libraryItens.isNotEmpty
+                        ? LibraryGrid(itens: controller.libraryItens)
+                        : Center(
+                            child: Text(
+                              "Estamos procurando por seus dados...",
+                              style: ThemeConfig().getTextStyle(),
+                            ),
+                          )
+                    : controller.libraryItens.isNotEmpty
+                        ? LibraryGrid(itens: controller.libraryItens)
+                        : Center(
+                            child: Text(
+                              "Estamos procurando por seus dados...",
+                              style: ThemeConfig().getTextStyle(),
+                            ),
+                          )
               ],
             )),
       ),

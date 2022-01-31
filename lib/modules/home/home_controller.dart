@@ -100,7 +100,9 @@ class HomeController extends GetxController {
       }
     }
 
-    libraryItens = list1;
+    list1.forEach((element) {
+      libraryItens.add(element);
+    });
   }
 
   void resetData() {
@@ -171,7 +173,7 @@ class HomeController extends GetxController {
 
     switch (index) {
       case 0:
-        libraryItens = playlistItems1;
+        libraryItens(playlistItems1);
         break;
 
       case 1:
