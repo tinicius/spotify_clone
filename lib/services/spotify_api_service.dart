@@ -1,8 +1,8 @@
 import 'package:flutter_web_auth/flutter_web_auth.dart' show FlutterWebAuth;
+import 'package:http/http.dart';
 import 'package:spotify/spotify.dart';
 import 'package:spotify_clone/models/search_result.dart';
 import 'package:spotify_clone/repositories/remote_config_repository.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -10,22 +10,68 @@ class SpotifyApiService {
   SpotifyApi? spotify;
   RemoteConfigRepository remoteConfigRepository = RemoteConfigRepository();
 
-  Future<void> auth() async {
-    Map<String, dynamic> credentialsJson = {};
+  static const redirectUri = 'https://tinicius.github.io/spotify_clone/redirect_page.html';
 
-    if (kIsWeb) {
-      //TODO fix this
-      //Remote config does not working on Web
-    } else {
-      credentialsJson = await remoteConfigRepository.getClientInfo();
+  Future<String> getAuthLink() async {
+    // Map<String, dynamic> credentialsJson =
+    //     await remoteConfigRepository.getClientInfo();
+
+    Map<String, dynamic> credentialsJson = {
+      "client_id": "e4835b7155c5422b8639a0ea1a2ff766",
+      "client_secret": "13b49ec7c25c4717bc75ad42fcdf9f55",
+    };
+
+    const scopes = 'user-read-email '
+        'user-library-read '
+        'user-library-modify '
+        'user-library-read '
+        'app-remote-control '
+        'user-top-read '
+        'user-read-recently-played ';
+
+    return "https://accounts.spotify.com/authorize?response_type=code&client_id=${credentialsJson["client_id"]}&scope=$scopes&redirect_uri=$redirectUri";
+  }
+
+  Future<void> authWeb(String code) async {
+    //TODO Fix this
+    // Map<String, dynamic> credentialsJson =
+    //     await remoteConfigRepository.getClientInfo();
+
+    Map<String, dynamic> credentialsJson = {
+      "client_id": "e4835b7155c5422b8639a0ea1a2ff766",
+      "client_secret": "13b49ec7c25c4717bc75ad42fcdf9f55",
+    };
+
+    try {
+      Response response = await http.post(
+        Uri.parse("https://accounts.spotify.com/api/token"),
+        body: {
+          "grant_type": "authorization_code",
+          "code": code,
+          "redirect_uri": redirectUri,
+          "client_secret": credentialsJson["client_secret"],
+          "client_id": credentialsJson["client_id"],
+        },
+      );
+
+      dynamic body = json.decode(response.body);
+
+      spotify = SpotifyApi.withAccessToken(body["access_token"]);
+    } catch (e) {
+      print("Error = $e");
     }
+  }
+
+  Future<void> auth() async {
+    Map<String, dynamic> credentialsJson =
+        await remoteConfigRepository.getClientInfo();
 
     final SpotifyApiCredentials credentials = SpotifyApiCredentials(
         credentialsJson["client_id"], credentialsJson["client_secret"]);
 
     final grant = SpotifyApi.authorizationCodeGrant(credentials);
 
-    const redirectUri = 'yourname:/';
+    const redirectUri = 'https://www.spotify.com/br/';
 
     final scopes = [
       'user-read-email',
@@ -124,9 +170,8 @@ class SpotifyApiService {
         playlists.add(element);
       });
     } catch (e) {
-      print(e);
+      return playlists;
     }
-    print(playlists);
     return playlists;
   }
 
@@ -160,7 +205,7 @@ class SpotifyApiService {
 
   Future<List<SearchResult>> search(String text, List<SearchType> types) async {
     List<SearchResult> searchResult = [];
-
+    print(spotify);
     if (text.isNotEmpty) {
       for (var element in types) {
         BundledPages? pages = spotify?.search.get(text);
@@ -180,13 +225,13 @@ class SpotifyApiService {
     return searchResult;
   }
 
-  Future<User> getUser() async {
+  Future<User?> getUser() async {
     User? user;
 
     try {
       user = await spotify!.me.get();
     } catch (e) {
-      user = User();
+      return null;
     }
     return user;
   }
