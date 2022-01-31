@@ -7,16 +7,12 @@
     <title>Spotify clone</title>
 </head>
 <body>
-    <div id="myDiv"> </div>
-
-    <script>
-        var url = "localhost:8000/something?name=ABC"
-        var name = url.substring(url.indexOf("=") + 1);  
-
-        var parent = document.getElementById("myDiv");
-        var input = document.createElement("input");
-        input.value = name;
-        parent.appendChild(input)
-    </script>
+   <input id="user" value="">    
+<script>
+    var url_string = window.location.href; //window.location.href
+    var url = new URL(url_string);
+    var c = url.searchParams.get("name");
+    document.getElementById("user").value = c;
+</script>
 </body>
 </html>
