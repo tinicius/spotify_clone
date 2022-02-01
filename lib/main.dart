@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotify_clone/application/bindings/application_bindings.dart';
 import 'package:spotify_clone/application/themes/theme_config.dart';
+import 'package:spotify_clone/modules/history/history_module.dart';
 import 'package:spotify_clone/modules/home/home_module.dart';
+import 'package:spotify_clone/modules/inbox/inbox_module.dart';
 import 'package:spotify_clone/modules/login/login_module.dart';
+import 'package:spotify_clone/modules/search_camera/search_camera_module.dart';
+import 'package:spotify_clone/modules/settings/settings_module.dart';
 import 'package:spotify_clone/modules/splash/splash_module.dart';
 import 'package:spotify_clone/repositories/firebase_repository.dart';
 import 'package:flutter/foundation.dart';
@@ -44,6 +48,10 @@ class MyApp extends StatelessWidget {
         ...SplashModule().routes,
         ...HomeModule().routes,
         ...LoginModule().routes,
+        ...HistoryModule().routes,
+        ...InboxModule().routes,
+        ...SettingsModule().routes,
+        ...SearchCameraModule().routes,
       ],
     );
   }

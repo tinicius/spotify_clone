@@ -100,9 +100,9 @@ class HomeController extends GetxController {
       }
     }
 
-    list1.forEach((element) {
+    for (var element in list1) {
       libraryItens.add(element);
-    });
+    }
   }
 
   void resetData() {

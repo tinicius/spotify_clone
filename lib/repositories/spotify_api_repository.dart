@@ -10,7 +10,6 @@ class SpotifyApiRepository {
   User? user;
 
   Future<void> auth({String? code}) async {
-    print(_service.spotify);
     if (kIsWeb) {
       await _service.authWeb(code!);
     } else {

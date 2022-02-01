@@ -21,30 +21,34 @@ class _PageOneState extends State<PageOne> {
         elevation: 0.0,
         title: Text(widget.title),
         actions: [
-          InkWell(
-            onTap: () {
-            },
-            child: const Padding(
+          const InkWell(
+            child: Padding(
               padding: EdgeInsets.all(8.0),
-              child: Icon(Icons.flash_on_outlined),
+              child: Icon(Icons.flash_on_rounded),
             ),
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              Get.toNamed("/history");
+            },
             child: const Padding(
               padding: EdgeInsets.all(8.0),
               child: Icon(Icons.history_outlined),
             ),
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              Get.toNamed("/inbox");
+            },
             child: const Padding(
               padding: EdgeInsets.all(8.0),
               child: Icon(Icons.inbox_outlined),
             ),
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              Get.toNamed("/settings");
+            },
             child: const Padding(
               padding: EdgeInsets.all(8.0),
               child: Icon(Icons.settings_outlined),
@@ -59,8 +63,7 @@ class _PageOneState extends State<PageOne> {
           children: [
             controller.gridHome.isNotEmpty
                 ? GridHome(listGridItems: controller.gridHome)
-                : Container(
-                  ),
+                : Container(),
             controller.list1.isNotEmpty
                 ? Flexible(
                     fit: FlexFit.loose,

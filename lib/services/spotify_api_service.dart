@@ -70,7 +70,7 @@ class SpotifyApiService {
 
     final grant = SpotifyApi.authorizationCodeGrant(credentials);
 
-    const redirectUri = 'https://www.spotify.com/br/';
+    const redirectUri = 'yourname:/';
 
     final scopes = [
       'user-read-email',
@@ -204,7 +204,6 @@ class SpotifyApiService {
 
   Future<List<SearchResult>> search(String text, List<SearchType> types) async {
     List<SearchResult> searchResult = [];
-    print(spotify);
     if (text.isNotEmpty) {
       for (var element in types) {
         BundledPages? pages = spotify?.search.get(text);

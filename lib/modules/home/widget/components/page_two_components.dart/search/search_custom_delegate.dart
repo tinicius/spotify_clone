@@ -36,6 +36,7 @@ class SearchCustomDelegate extends SearchDelegate {
         icon: const Icon(Icons.camera_alt_outlined),
         onPressed: () {
           query = '';
+          Get.toNamed("/search_camera");
         },
       ),
     ];

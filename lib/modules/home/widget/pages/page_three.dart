@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotify_clone/application/themes/theme_config.dart';
-import 'package:spotify_clone/models/grid_item_model.dart';
 import 'package:spotify_clone/modules/home/home_controller.dart';
 import 'package:spotify_clone/modules/home/widget/components/page_three_components/avatar_profile.dart';
 import 'package:spotify_clone/modules/home/widget/components/page_three_components/horizontal_menu.dart';
@@ -61,7 +60,7 @@ class _PageThreeState extends State<PageThree> {
                             ),
                           )
                     : controller.libraryItens.isNotEmpty
-                        ? LibraryGrid(itens: controller.libraryItens)
+                        ? LibraryList(itens: controller.libraryItens)
                         : Center(
                             child: Text(
                               "Estamos procurando por seus dados...",
