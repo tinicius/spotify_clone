@@ -7,7 +7,7 @@ const RESOURCES = {
 "assets/assets/images/spotify-logo.png": "daf137762beca656a3c6d7791b0d1c85",
 "assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
 "assets/fonts/MaterialIcons-Regular.otf": "4e6447691c9509f7acdbf8a931a85ca1",
-"assets/NOTICES": "61ab01b4a5ace914083dea2edba4ea79",
+"assets/NOTICES": "0f931d57d294daa4be74580329018991",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
 "auth.html": "641eb099d07632db2937e4e1546cf161",
 "canvaskit/canvaskit.js": "43fa9e17039a625450b6aba93baf521e",
@@ -19,9 +19,9 @@ const RESOURCES = {
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
-"index.html": "531d17b5ea78052390052e7bf61b726a",
-"/": "531d17b5ea78052390052e7bf61b726a",
-"main.dart.js": "886fcec5369ba263a58c3e246c2931da",
+"index.html": "49b031239d675d7faf7bdcff1c4aab46",
+"/": "49b031239d675d7faf7bdcff1c4aab46",
+"main.dart.js": "0349a291936bbb9500c58441e37b8b6d",
 "manifest.json": "22f82f6b49fd3fb449a80e2b9ec0f9de",
 "version.json": "46e2ff16fc177957dee8d52c6a04affd"
 };
