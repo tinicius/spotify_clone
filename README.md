@@ -14,15 +14,6 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li>
-      <a href="#documentation">Documentation</a>
-      <ul>
-        <li><a href="#cli">CLI</a></li>
-        <li><a href="#config-file">Configuration File</a></li>
-      </ul>
-    </li>
-    <li><a href="#contributions">Contributions</a></li>
-    <li><a href="#development">Development</a></li>
   </ol>
 </details>
 
@@ -37,13 +28,15 @@ Esse aplicativo é um "clone" do app Spotify oficial, ou seja, a ideia é basear
 <div id="prerequisites"></div>
 
 ### Prerequisites
-This is what you'll need to start using HabSync
-- Python 3.8.0 or newer
+This is what you'll need to try the app
+- A configured Flutter space [documentation](https://docs.flutter.dev/get-started/)
+- How we use the [Spotify Web Api](https://developer.spotify.com/documentation/web-api/) exists limitations to log on application, so you can use this user to test.
+E-mail:
+Password:
 
 
 <div id="installation"></div>
 
 ### Installation
-1. Download the [latest release](https://github.com/HabSync/habsync-lnx/releases/tag/v0.1.0)
-2. Open a terminal where the program was downloaded and run `pip install habsync-0.1.0.whl`
-3. To execute just type `python -m habsync`
+1. Clone this repository
+2. On project path run `flutter run`, like a simple flutter project
