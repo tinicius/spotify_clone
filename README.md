@@ -1,16 +1,49 @@
 # spotify_clone
 
-A new Flutter project.
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#documentation">Documentation</a>
+      <ul>
+        <li><a href="#cli">CLI</a></li>
+        <li><a href="#config-file">Configuration File</a></li>
+      </ul>
+    </li>
+    <li><a href="#contributions">Contributions</a></li>
+    <li><a href="#development">Development</a></li>
+  </ol>
+</details>
+
+<!-- ABOUT THE PROJECT -->
+<div id="about-the-project"></div>
+
+## About The Project
+
+Esse aplicativo é um "clone" do app Spotify oficial, ou seja, a ideia é basear na interface do aplicativo oficial e fazer um o máximo próximo.
 
 ## Getting Started
+<div id="prerequisites"></div>
 
-This project is a starting point for a Flutter application.
+### Prerequisites
+This is what you'll need to start using HabSync
+- Python 3.8.0 or newer
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+<div id="installation"></div>
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Installation
+1. Download the [latest release](https://github.com/HabSync/habsync-lnx/releases/tag/v0.1.0)
+2. Open a terminal where the program was downloaded and run `pip install habsync-0.1.0.whl`
+3. To execute just type `python -m habsync`
